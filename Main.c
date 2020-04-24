@@ -6,7 +6,7 @@
 #define R_BITS 3
 
 
-int getBinary(int R);
+void printRegister(int R);
 void ADD(); //not implemented - STEP 1
 void AND(); //not implemented
 void BR(); //not implemented - STEP 1
@@ -29,23 +29,21 @@ void main() {
     while (1) {
         //printf("Hello world!\n");
         char input1[MAX_SIZE];
-        char input2[MAX_SIZE];
-        char input3[MAX_SIZE];
+
         scanf("%s",&input1);
-        scanf("%s",&input2);
-        scanf("%s",&input3);
-        printf("%s %s %s\n", input1,input2,input3);
 
         if(strcmp(input1, "ADD") == 0){
-
+            ADD();
         }
-        int R = input2[1] - '0';
-        printBinary(R);
+        if(strcmp(input1, "AND") == 0){
+            AND();
+        }
+
     }
 }
 
 
-int printBinary(int R){
+void printRegister(int R){
     int R_arr[R_BITS] ;
     int i;
     for(int j = 0; j < R_BITS; j++){
@@ -59,7 +57,7 @@ int printBinary(int R){
     for(i = R_BITS-1; i>=0;i--){
         printf("%d", R_arr[i]);
     }
-    return 0;
+    return;
 
 }
 
