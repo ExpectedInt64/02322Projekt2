@@ -12,7 +12,7 @@ int imm5();
 
 void ADD(); //not implemented - STEP 1
 void AND(); //not implemented
-void BR(bool n, bool z, bool p); //not implemented - STEP 1
+void BR(bool n, bool z, bool p); //Done - STEP 1
 void JMP(); //not implemented
 void JSR(); //not implemented
 void JSRR(); //not implemented
@@ -41,6 +41,7 @@ void main() {
         if (strcmp(input1, "AND") == 0) {
             //AND();
         }
+
         if (input1[0] == 'B' && input1[1] == 'R') {
             bool n = false;
             bool z = false;
@@ -54,13 +55,61 @@ void main() {
             }
             BR(n, z, p);
         }
+        if(strcmp(input1, "JMP") == 0){
+            //JMP();
+        }
+        if(strcmp(input1, "JSR") == 0){
+            //JSR();
+        }
+        if(strcmp(input1, "JSRR") == 0){
+            //JSRR();
+        }
+        if(strcmp(input1, "LD") == 0){
+            //LD();
+        }
+        if(strcmp(input1, "LDI") == 0){
+            //LDI();
+        }
+        if(strcmp(input1, "LDR") == 0){
+            //LDR();
+        }
+        if(strcmp(input1, "LEA") == 0){
+            //LEA();
+        }
+        if(strcmp(input1, "NOT") == 0){
+            //NOT();
+        }
+        if(strcmp(input1, "RET") == 0){
+            RET();
+        }
+        if(strcmp(input1, "RTI") == 0){
+            RTI();
+        }
+        if(strcmp(input1, "ST") == 0){
+            //ST();
+        }
+        if(strcmp(input1, "STI") == 0){
+            //STI();
+        }
+        if(strcmp(input1, "STR") == 0){
+            //STR();
+        }
+        if(strcmp(input1, "TRAP") == 0){
+            //TRAP();
+        }
 
     }
 }
 
 
-void printNumberBits(int R, int bits) {
-    int R_arr[bits];
+
+void printNumberBits(int R, int bits){
+    bool negative = false;
+    if (R < 0){
+        negative = true;
+        R =  -R + 1;
+    }
+    int R_arr[bits] ;
     int i;
     for (int j = 0; j < bits; j++) {
         R_arr[j] = 0;
@@ -70,8 +119,13 @@ void printNumberBits(int R, int bits) {
         R = R / 2;
     }
 
-    for (i = bits - 1; i >= 0; i--) {
-        printf("%d", R_arr[i]);
+
+    for(i = bits-1; i>=0;i--){
+        if (negative) {
+            printf("%d", 1 - R_arr[i]);
+        } else {
+            printf("%d", R_arr[i]);
+        }
     }
     return;
 
