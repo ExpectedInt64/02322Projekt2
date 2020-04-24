@@ -29,18 +29,10 @@ void main() {
     while (1) {
         //printf("Hello world!\n");
         char input1[MAX_SIZE];
-        char input2[MAX_SIZE];
-        char input3[MAX_SIZE];
         scanf("%s",&input1);
-        scanf("%s",&input2);
-        scanf("%s",&input3);
-        printf("%s %s %s\n", input1,input2,input3);
-
         if(strcmp(input1, "ADD") == 0){
-
+            ADD();
         }
-        int R = input2[1] - '0';
-        printBinary(R);
     }
 }
 
@@ -65,7 +57,9 @@ void printRegister(int R){
 // for implementation
 void ADD(){ // - STEP 1
     printf("0001");
-
+    char arr[R_BITS];
+    scanf("%s",&arr);
+    printRegister(arr[1]-'0');
 
     return;
 }
