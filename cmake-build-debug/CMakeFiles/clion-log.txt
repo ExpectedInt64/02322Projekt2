@@ -1,30 +1,11 @@
-"F:\CLion\CLion 2020.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - NMake Makefiles" "C:\Users\frede\Documents\DTU - UNI\Maskinær\Aflevering2"
--- The C compiler identification is MSVC 19.15.26730.0
--- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.15.26726/bin/Hostx86/x86/cl.exe
--- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.15.26726/bin/Hostx86/x86/cl.exe -- broken
-CMake Error at F:/CLion/CLion 2020.1/bin/cmake/win/share/cmake-3.16/Modules/CMakeTestCCompiler.cmake:60 (message):
-  The C compiler
-
-    "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.15.26726/bin/Hostx86/x86/cl.exe"
-
-  is not able to compile a simple test program.
-
-  It fails with the following output:
-
-    Change Dir: C:/Users/frede/Documents/DTU - UNI/MaskinÃ¦r/Aflevering2/cmake-build-debug/CMakeFiles/CMakeTmp
-    
-    Run Build Command(s):nmake /nologo cmTC_e472e\fast && makefile(55) : fatal error U1007: double quotation mark not allowed in name
-    Stop.
-    
-    
-
-  
-
-  CMake will not be able to correctly generate this project.
-Call Stack (most recent call first):
-  CMakeLists.txt:2 (project)
-
-
--- Configuring incomplete, errors occurred!
-See also "C:/Users/frede/Documents/DTU - UNI/MaskinÃ¦r/Aflevering2/cmake-build-debug/CMakeFiles/CMakeOutput.log".
-See also "C:/Users/frede/Documents/DTU - UNI/MaskinÃ¦r/Aflevering2/cmake-build-debug/CMakeFiles/CMakeError.log".
+"C:\Program Files\JetBrains\CLion 2019.3.5\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "C:\Users\blued\Documents\Github repos\02322Projekt2"
+-- The C compiler identification is GNU 6.3.0
+-- Check for working C compiler: C:/MinGW/bin/gcc.exe
+-- Check for working C compiler: C:/MinGW/bin/gcc.exe -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/blued/Documents/Github repos/02322Projekt2/cmake-build-debug
