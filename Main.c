@@ -8,7 +8,7 @@
 
 
 void printNumberBits(int R, int bits);
-int imm5();
+int imm(char arr[], int bits);
 
 void ADD(); //not implemented - STEP 1
 void AND(); //not implemented
@@ -131,9 +131,9 @@ void printNumberBits(int R, int bits){
 
 }
 
-int imm5(char arr[]){
-    char temp_arr[MAX_SIZE];
-    for(int i = 1; i < MAX_SIZE; i++){
+int imm(char arr[], int bits){
+    char temp_arr[bits];
+    for(int i = 1; i < bits; i++){
         temp_arr[i-1] = arr[i];
     }
     int i;
@@ -155,7 +155,7 @@ void ADD() { // - STEP 1
         printNumberBits(adder[1] - '0', 3);
     } else if (adder[0] == '#') {
         printf("1");
-        printNumberBits(imm5(adder),5);
+        printNumberBits(imm(adder,5),5);
     }
     printf("\n");
     return;
