@@ -6,7 +6,7 @@
 #define R_BITS 3
 
 
-int getBinary(int R);
+void printRegister(int R);
 void ADD(); //not implemented - STEP 1
 void AND(); //not implemented
 void BR(); //not implemented - STEP 1
@@ -45,7 +45,7 @@ void main() {
 }
 
 
-int printBinary(int R){
+void printRegister(int R){
     int R_arr[R_BITS] ;
     int i;
     for(int j = 0; j < R_BITS; j++){
@@ -59,8 +59,6 @@ int printBinary(int R){
     for(i = R_BITS-1; i>=0;i--){
         printf("%d", R_arr[i]);
     }
-    return 0;
-
 }
 
 
