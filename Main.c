@@ -1,4 +1,5 @@
-//
-// Created by frede on 24/04/2020.
-//
+#include "stdio.h"
 
+void main(){
+    printf("Hello world!");
+}
