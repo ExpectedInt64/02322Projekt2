@@ -8,6 +8,8 @@
 
 
 void printNumberBits(int R, int bits);
+int imm5();
+
 void ADD(); //not implemented - STEP 1
 void AND(); //not implemented
 void BR(bool n, bool z, bool p); //not implemented - STEP 1
@@ -31,23 +33,23 @@ void main() {
         //printf("Hello world!\n");
         char input1[MAX_SIZE];
 
-        scanf("%s",&input1);
+        scanf("%s", &input1);
 
-        if(strcmp(input1, "ADD") == 0){
+        if (strcmp(input1, "ADD") == 0) {
             ADD();
         }
-        if(strcmp(input1, "AND") == 0){
+        if (strcmp(input1, "AND") == 0) {
             //AND();
         }
-        if(input1[0] == 'B' && input1[1] == 'R'){
+        if (input1[0] == 'B' && input1[1] == 'R') {
             bool n = false;
             bool z = false;
             bool p = false;
             for (int i = 0; i < MAX_SIZE; i++) {
-                if (input1[i]){
-                    if (input1[i] == 'n'){z = true;}
-                    if (input1[i] == 'z'){z = true;}
-                    if (input1[i] == 'p'){z = true;}
+                if (input1[i]) {
+                    if (input1[i] == 'n') { z = true; }
+                    if (input1[i] == 'z') { z = true; }
+                    if (input1[i] == 'p') { z = true; }
                 }
             }
             BR(n, z, p);
@@ -57,45 +59,64 @@ void main() {
 }
 
 
-void printNumberBits(int R, int bits){
-    int R_arr[bits] ;
+void printNumberBits(int R, int bits) {
+    int R_arr[bits];
     int i;
-    for(int j = 0; j < bits; j++){
+    for (int j = 0; j < bits; j++) {
         R_arr[j] = 0;
     }
-    for(i = 0; R>0; i++){
-        R_arr[i]=R%2;
-        R = R/2;
+    for (i = 0; R > 0; i++) {
+        R_arr[i] = R % 2;
+        R = R / 2;
     }
 
-    for(i = bits-1; i>=0;i--){
+    for (i = bits - 1; i >= 0; i--) {
         printf("%d", R_arr[i]);
     }
     return;
 
 }
 
+int imm5(char arr[]){
+    char temp_arr[MAX_SIZE];
+    for(int i = 1; i < MAX_SIZE; i++){
+        temp_arr[i-1] = arr[i];
+    }
+    int i;
+    sscanf(temp_arr,"%d",&i);
+    return i;
+}
 
 // for implementation
-void ADD(){ // - STEP 1
+void ADD() { // - STEP 1
     printf("0001");
     char arr[R_BITS];
-    scanf("%s",&arr);
-    printNumberBits(arr[1]-'0',3);
-
+    scanf("%s", &arr);
+    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1] - '0', 3);
+    char adder[MAX_SIZE];
+    scanf("%s", &adder);
+    if (adder[0] == 'R') {
+        printf("000");
+        printNumberBits(adder[1] - '0', 3);
+    } else if (adder[0] == '#') {
+        printf("1");
+        printNumberBits(imm5(adder),5);
+    }
+    printf("\n");
     return;
 }
 
 void AND();
 
-void BR(bool n, bool z, bool p){
+void BR(bool n, bool z, bool p) {
     printf("0000");
-    if(n){printf("1");} else{printf("0");}
-    if(z){printf("1");} else{printf("0");}
-    if(p){printf("1");} else{printf("0");}
+    if (n) { printf("1"); } else { printf("0"); }
+    if (z) { printf("1"); } else { printf("0"); }
+    if (p) { printf("1"); } else { printf("0"); }
 
     int input;
-    scanf("%d",&input);
+    scanf("%d", &input);
     printNumberBits(input, 9);
     printf("\n");
     return;
@@ -122,7 +143,7 @@ void RET() {
     return;
 }
 
-void RTI(){
+void RTI() {
     printf("1000000000000000\n");
     return;
 }
