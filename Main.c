@@ -1,15 +1,16 @@
+#include <stdbool.h>
 #include "stdio.h"
 #include "string.h"
 #include "stdlib.h"
 
-#define MAX_SIZE 10
+#define MAX_SIZE 5
 #define R_BITS 3
 
 
-void printRegister(int R);
+void printNumberBits(int R, int bits);
 void ADD(); //not implemented - STEP 1
 void AND(); //not implemented
-void BR(); //not implemented - STEP 1
+void BR(bool n, bool z, bool p); //not implemented - STEP 1
 void JMP(); //not implemented
 void JSR(); //not implemented
 void JSRR(); //not implemented
@@ -36,17 +37,30 @@ void main() {
             ADD();
         }
         if(strcmp(input1, "AND") == 0){
-            AND();
+            //AND();
+        }
+        if(strcmp(input1[0], "B") == 0 && strcmp(input1[1], "R") == 0){
+            bool n = false;
+            bool z = false;
+            bool p = false;
+            for (int i = 0; i < MAX_SIZE; i++) {
+                if (input1[i]){
+                    if (strcmp(input1[i], "n") == 0){z = true;}
+                    if (strcmp(input1[i], "z") == 0){z = true;}
+                    if (strcmp(input1[i], "p") == 0){z = true;}
+                }
+            }
+            BR(n, z, p);
         }
 
     }
 }
 
 
-void printRegister(int R){
-    int R_arr[R_BITS] ;
+void printNumberBits(int R, int bits){
+    int R_arr[bits] ;
     int i;
-    for(int j = 0; j < R_BITS; j++){
+    for(int j = 0; j < bits; j++){
         R_arr[j] = 0;
     }
     for(i = 0; R>0; i++){
@@ -54,7 +68,7 @@ void printRegister(int R){
         R = R/2;
     }
 
-    for(i = R_BITS-1; i>=0;i--){
+    for(i = bits-1; i>=0;i--){
         printf("%d", R_arr[i]);
     }
     return;
@@ -72,7 +86,20 @@ void ADD(){ // - STEP 1
 
 void AND();
 
-void BR(); // - STEP 1
+void BR(bool n, bool z, bool p){
+    printf("0000");
+    if(n){printf("1");} else{printf("0");}
+    if(z){printf("1");} else{printf("0");}
+    if(p){printf("1");} else{printf("0");}
+
+    int input;
+    scanf("%d",&input);
+    printNumberBits(input, 9);
+    printf()
+
+
+    return;
+}
 
 void JMP();
 
