@@ -6,20 +6,20 @@
 #define R_BITS 3
 
 char * getBinary(int R);
-char * ADD(); //not implemented
+char * ADD(); //not implemented - STEP 1
 char * AND(); //not implemented
-char * BR(); //not implemented
+char * BR(); //not implemented - STEP 1
 char * JMP(); //not implemented
 char * JSR(); //not implemented
 char * JSRR(); //not implemented
-char * LD(); //not implemented
+char * LD(); //not implemented - STEP 1
 char * LDI(); //not implemented
-char * LDR(); //not implemented
+char * LDR(); //not implemented - STEP 1
 char * LEA(); //not implemented
-char * NOT(); //not implemented
+char * NOT(); //not implemented - STEP 1
 char * RET(); //not implemented
 char * RTI(); //not implemented
-char * ST(); //not implemented
+char * ST(); //not implemented - STEP 1
 char * STI(); //not implemented
 char * STR(); //not implemented
 char * TRAP(); //not implemented
