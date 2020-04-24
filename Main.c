@@ -5,24 +5,24 @@
 #define MAX_SIZE 10
 #define R_BITS 3
 
-char * getBinary(int R);
-char * ADD(); //not implemented - STEP 1
-char * AND(); //not implemented
-char * BR(); //not implemented - STEP 1
-char * JMP(); //not implemented
-char * JSR(); //not implemented
-char * JSRR(); //not implemented
-char * LD(); //not implemented - STEP 1
-char * LDI(); //not implemented
-char * LDR(); //not implemented - STEP 1
-char * LEA(); //not implemented
-char * NOT(); //not implemented - STEP 1
-char * RET(); //not implemented
-char * RTI(); //not implemented
-char * ST(); //not implemented - STEP 1
-char * STI(); //not implemented
-char * STR(); //not implemented
-char * TRAP(); //not implemented
+int getBinary(int R);
+void ADD(); //not implemented - STEP 1
+void AND(); //not implemented
+void BR(); //not implemented - STEP 1
+void JMP(); //not implemented
+void JSR(); //not implemented
+void JSRR(); //not implemented
+void LD(); //not implemented - STEP 1
+void LDI(); //not implemented
+void LDR(); //not implemented - STEP 1
+void LEA(); //not implemented
+void NOT(); //not implemented - STEP 1
+void RET(); //not implemented
+void RTI(); //not implemented
+void ST(); //not implemented - STEP 1
+void STI(); //not implemented
+void STR(); //not implemented
+void TRAP(); //not implemented
 
 
 void main() {
@@ -50,7 +50,7 @@ void main() {
     }
 }
 
-char * getBinary(int R){
+int getBinary(int R){
     char R_arr[R_BITS];
     int i;
     for(i = 0; R>0; i++){
@@ -60,3 +60,50 @@ char * getBinary(int R){
     printf("%s", R_arr);
     return R_arr;
 }
+
+// for implementation
+void ADD(){ // - STEP 1
+    printf("0001");
+    
+
+    return;
+}
+
+void AND();
+
+void BR(); // - STEP 1
+
+void JMP();
+
+void JSR();
+
+void JSRR();
+
+void LD(); // - STEP 1
+
+void LDI();
+
+void LDR(); // - STEP 1
+
+void LEA();
+
+void NOT(); // - STEP 1
+
+void RET();
+
+void RTI();
+
+void ST();// - STEP 1
+
+void STI();
+
+void STR();
+
+void TRAP();
+
+
+
+
+
+
+
