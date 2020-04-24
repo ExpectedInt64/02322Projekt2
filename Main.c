@@ -147,6 +147,7 @@ void ADD() { // - STEP 1
     char arr[R_BITS];
     scanf("%s", &arr);
     printNumberBits(arr[1] - '0', 3);
+    scanf("%s", &arr);
     printNumberBits(arr[1] - '0', 3);
     char adder[MAX_SIZE];
     scanf("%s", &adder);
