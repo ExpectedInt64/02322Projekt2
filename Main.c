@@ -10,9 +10,9 @@
 void printNumberBits(int R, int bits);
 int imm(char arr[], int bits);
 
-void ADD(); //DONE
+void ADD(); //DONE - STEP 1
 void AND(); //not implemented
-void BR(bool n, bool z, bool p); //Done - STEP 1
+void BR(bool n, bool z, bool p); //DONE - STEP 1
 void JMP(); //not implemented
 void JSR(); //not implemented
 void JSRR(); //not implemented
@@ -21,8 +21,8 @@ void LDI(); //not implemented
 void LDR(); //not implemented - STEP 1
 void LEA(); //not implemented
 void NOT(); //not implemented - STEP 1
-void RET(); //Done
-void RTI(); //Done
+void RET(); //DONE
+void RTI(); //DONE
 void ST(); //not implemented - STEP 1
 void STI(); //not implemented
 void STR(); //not implemented
