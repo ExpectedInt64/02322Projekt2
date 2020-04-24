@@ -30,5 +30,8 @@ void main() {
             binary[i]=numberInput%2;
             numberInput=numberInput/2;
         }
+        for(int i = R_BITS-1; i>0;i--){
+            printf("%d",binary[i]);
+        }
     }
 }
