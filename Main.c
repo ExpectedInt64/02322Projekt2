@@ -17,7 +17,7 @@ void LDI(); //not implemented
 void LDR(); //not implemented - STEP 1
 void LEA(); //not implemented
 void NOT(); //not implemented - STEP 1
-void RET(); //not implemented
+void RET(); //Done
 void RTI(); //not implemented
 void ST(); //not implemented - STEP 1
 void STI(); //not implemented
@@ -64,7 +64,7 @@ int getBinary(int R){
 // for implementation
 void ADD(){ // - STEP 1
     printf("0001");
-    
+
 
     return;
 }
@@ -89,7 +89,10 @@ void LEA();
 
 void NOT(); // - STEP 1
 
-void RET();
+void RET() {
+    printf("1100000111000000\n");
+    return;
+}
 
 void RTI();
 
