@@ -10,7 +10,7 @@
 void printNumberBits(int R, int bits);
 int imm(char arr[], int bits);
 
-void ADD(); //not implemented - STEP 1
+void ADD(); //DONE
 void AND(); //not implemented
 void BR(bool n, bool z, bool p); //Done - STEP 1
 void JMP(); //not implemented
