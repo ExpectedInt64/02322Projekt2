@@ -18,7 +18,7 @@ void LDR(); //not implemented - STEP 1
 void LEA(); //not implemented
 void NOT(); //not implemented - STEP 1
 void RET(); //Done
-void RTI(); //not implemented
+void RTI(); //Done
 void ST(); //not implemented - STEP 1
 void STI(); //not implemented
 void STR(); //not implemented
@@ -94,7 +94,10 @@ void RET() {
     return;
 }
 
-void RTI();
+void RTI(){
+    printf("1000000000000000\n");
+    return;
+}
 
 void ST();// - STEP 1
 
