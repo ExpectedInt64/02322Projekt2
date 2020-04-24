@@ -100,6 +100,11 @@ void main() {
 
 
 void printNumberBits(int R, int bits){
+    bool negative = false;
+    if (R < 0){
+        negative = true;
+        R =  -R + 1;
+    }
     int R_arr[bits] ;
     int i;
     for(int j = 0; j < bits; j++){
@@ -111,7 +116,11 @@ void printNumberBits(int R, int bits){
     }
 
     for(i = bits-1; i>=0;i--){
-        printf("%d", R_arr[i]);
+        if (negative) {
+            printf("%d", 1 - R_arr[i]);
+        } else {
+            printf("%d", R_arr[i]);
+        }
     }
     return;
 
