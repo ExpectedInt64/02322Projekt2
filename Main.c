@@ -6,6 +6,24 @@
 #define R_BITS 3
 
 char * getBinary(int R);
+char * ADD(); //not implemented
+char * AND(); //not implemented
+char * BR(); //not implemented
+char * JMP(); //not implemented
+char * JSR(); //not implemented
+char * JSRR(); //not implemented
+char * LD(); //not implemented
+char * LDI(); //not implemented
+char * LDR(); //not implemented
+char * LEA(); //not implemented
+char * NOT(); //not implemented
+char * RET(); //not implemented
+char * RTI(); //not implemented
+char * ST(); //not implemented
+char * STI(); //not implemented
+char * STR(); //not implemented
+char * TRAP(); //not implemented
+
 
 void main() {
     while (1) {
