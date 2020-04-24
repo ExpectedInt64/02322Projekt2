@@ -39,15 +39,15 @@ void main() {
         if(strcmp(input1, "AND") == 0){
             //AND();
         }
-        if(input1[0] == "B" && input1[1] == "R"){
+        if(input1[0] == 'B' && input1[1] == 'R'){
             bool n = false;
             bool z = false;
             bool p = false;
             for (int i = 0; i < MAX_SIZE; i++) {
                 if (input1[i]){
-                    if (input1[i] == "n"){z = true;}
-                    if (input1[i] == "z"){z = true;}
-                    if (input1[i] == "p"){z = true;}
+                    if (input1[i] == 'n'){z = true;}
+                    if (input1[i] == 'z'){z = true;}
+                    if (input1[i] == 'p'){z = true;}
                 }
             }
             BR(n, z, p);
