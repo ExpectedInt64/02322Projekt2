@@ -29,8 +29,8 @@ void NOT(); //DONE - STEP 1
 void RET(); //DONE
 void RTI(); //DONE
 void ST(); //DONE - STEP 1
-void STI(); //not implemented
-void STR(); //not implemented
+void STI(); //DONE
+void STR(); //DONE
 void TRAP(); //not implemented
 
 void main() {
@@ -117,10 +117,10 @@ void main() {
             ST();
         }
         if(strcmp(input1, "STI") == 0){
-            //STI();
+            STI();
         }
         if(strcmp(input1, "STR") == 0){
-            //STR();
+            STR();
         }
         if(strcmp(input1, "TRAP") == 0){
             //TRAP();
@@ -358,9 +358,33 @@ void ST(){
     return;
 }// - STEP 1
 
-void STI();
+void STI(){
+    printstream("1011");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
 
-void STR();
+    char * input[5];
+    scanstream(*input);
+    printNumberBits(imm(input,9), 9);
+    printstream("\n");
+    return;
+}
+
+void STR(){
+    printstream("0111");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+
+    char * input[4];
+    scanstream(*input);
+    printNumberBits(imm(input,6), 6);
+    printstream("\n");
+    return;
+}
 
 void TRAP();
 
