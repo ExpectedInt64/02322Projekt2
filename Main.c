@@ -13,8 +13,8 @@ bool filemode = false;
 FILE *inputStream;
 FILE *outputStream;
 
-void scanstream(char * arr[]);
-void printstream(char arr[]);
+void scanStream(char *arr);
+void printStream(char *arr);
 void ADD(); //DONE - STEP 1
 void AND(); //not implemented
 void BR(bool n, bool z, bool p); //DONE - STEP 1
@@ -35,12 +35,12 @@ void TRAP(); //not implemented
 
 void main() {
     printf("write \"0\" for default file mode, \"1\" for choose file mode, \"2\" for stdin mode\n");
-    char inp[1];
-    scanf("%c", &inp);
-    if (inp[0] != '2') {
+    int inp;
+    scanf("%d", &inp);
+    if (inp != 2) {
         filemode = true;
         char fileN[64];
-        if (inp[0] == '1') {
+        if (inp == 1) {
             printf("Enter file path or file name:\n");
             scanf("%s", &fileN);
             inputStream = fopen(fileN, "r");
@@ -62,7 +62,7 @@ void main() {
     while (1) {
         //printf("Hello world!\n");
         char input1[MAX_SIZE];
-        scanstream(*input1);
+        scanStream(input1);
         if (strcmp(input1, "ADD") == 0) {
             ADD();
         }
@@ -129,17 +129,17 @@ void main() {
     }
 }
 
-void scanstream(char * arr[]) {
+void scanStream(char *arr) {
     if (filemode) {
-        fscanf(inputStream, "%s", &arr);
+        fgets(arr,200, inputStream);
     } else {
-        scanf("%s", &arr);
+        scanf("%s", arr);
     }
 }
 
-void printstream(char arr[]){
+void printStream(char *arr){
     if (filemode) {
-        fprintf(outputStream, arr);
+        fprintf(outputStream,"%s", arr);
     } else {
         printf(arr);
     }
@@ -194,37 +194,37 @@ int imm(char arr[], int bits){
 
 // for implementation
 void ADD() { // - STEP 1
-    printstream("0001");
+    printStream("0001");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
     char adder[MAX_SIZE];
-    scanstream(*adder);
+    scanStream(adder);
     if (adder[0] == 'R') {
-        printstream("000");
+        printStream("000");
         printNumberBits(adder[1] - '0', 3);
     } else if (adder[0] == '#') {
-        printstream("1");
+        printStream("1");
         printNumberBits(imm(adder,5),5);
     }
-    printstream("\n");
+    printStream("\n");
     return;
 }
 
 void AND();
 
 void BR(bool n, bool z, bool p) {
-    printstream("0000");
-    if (n) { printstream("1"); } else { printstream("0"); }
-    if (z) { printstream("1"); } else { printstream("0"); }
-    if (p) { printstream("1"); } else { printstream("0"); }
+    printStream("0000");
+    if (n) { printStream("1"); } else { printStream("0"); }
+    if (z) { printStream("1"); } else { printStream("0"); }
+    if (p) { printStream("1"); } else { printStream("0"); }
 
-    char * input[5];
-    scanstream(*input);
+    char *input;
+    scanStream(input);
     printNumberBits(imm(input,9), 9);
-    printstream("\n");
+    printStream("\n");
     return;
 }
 
@@ -245,12 +245,12 @@ void LEA();
 void NOT(); // - STEP 1
 
 void RET() {
-    printstream("1100000111000000\n");
+    printStream("1100000111000000\n");
     return;
 }
 
 void RTI() {
-    printstream("1000000000000000\n");
+    printStream("1000000000000000\n");
     return;
 }
 
