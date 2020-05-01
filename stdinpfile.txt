@@ -1,0 +1,9 @@
+AND R1, R1, #0
+AND R2, R2, #0
+ADD R1, R1, #10
+ADD R1, R1, R1
+NOT R1, R1
+ADD R1, R1, #19
+BRz #68
+RET
+RTI

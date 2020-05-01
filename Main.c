@@ -30,12 +30,20 @@ void STR(); //not implemented
 void TRAP(); //not implemented
 
 void main() {
-    printf("write \"0\" for file mode, \"1\" for stdin mode");
+    printf("write \"0\" for default file mode, \"1\" for choose file mode, \"2\" for stdin mode");
     char inp = getchar();
-    if (inp == "0") {
+    if (inp != "2") {
         filemode = true;
-    }
+        char file[50];
+        if (inp == 1) {
+            printf("Enter file path or file name:");
+            scanf("%s", &file);
+        } else {
+            file = "stdinpfile.txt"
+        }
 
+
+    }
 
     while (1) {
         //printf("Hello world!\n");
