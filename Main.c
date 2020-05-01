@@ -10,6 +10,9 @@
 void printNumberBits(int R, int bits);
 int imm(char arr[], int bits);
 bool filemode = false;
+FILE *inputStream;
+FILE *outputStream;
+
 
 void ADD(); //DONE - STEP 1
 void AND(); //not implemented
@@ -34,26 +37,26 @@ void main() {
     char inp = getchar();
     if (inp != "2") {
         filemode = true;
-        char file[50];
+        char fileN[50];
         if (inp == 1) {
             printf("Enter file path or file name:");
-            scanf("%s", &file);
+            scanf("%s", &fileN);
         } else {
-            file = "stdinpfile.txt"
+            char fileN[14] = "stdinpfile.txt";
         }
-
+        inputStream = fopen(fileN, "r");
+        outputStream = fopen("output.txt", "w");
 
     }
 
     while (1) {
         //printf("Hello world!\n");
-
-
-
         char input1[MAX_SIZE];
-
-        scanf("%s", &input1);
-
+        if (filemode) {
+            fscanf(inputStream, "%s", &input1);
+        } else {
+            scanf("%s", &input1);
+        }
         if (strcmp(input1, "ADD") == 0) {
             ADD();
         }
@@ -120,7 +123,13 @@ void main() {
     }
 }
 
-
+void printstream(char arr[]){
+    if (filemode) {
+        fprintf(outputStream, arr);
+    } else {
+        printf(arr);
+    }
+}
 
 void printNumberBits(int R, int bits){
     bool negative = false;
@@ -138,12 +147,21 @@ void printNumberBits(int R, int bits){
         R = R / 2;
     }
 
-
-    for(i = bits-1; i>=0;i--){
-        if (negative) {
-            printf("%d", 1 - R_arr[i]);
-        } else {
-            printf("%d", R_arr[i]);
+    if (filemode) {
+        for (i = bits - 1; i >= 0; i--) {
+            if (negative) {
+                fprintf(outputStream, "%d", 1 - R_arr[i]);
+            } else {
+                fprintf(outputStream, "%d", R_arr[i]);
+            }
+        }
+    } else {
+        for(i = bits-1; i>=0;i--){
+            if (negative) {
+                printf("%d", 1 - R_arr[i]);
+            } else {
+                printf("%d", R_arr[i]);
+            }
         }
     }
     return;
@@ -162,7 +180,7 @@ int imm(char arr[], int bits){
 
 // for implementation
 void ADD() { // - STEP 1
-    printf("0001");
+    printstream("0001");
     char arr[R_BITS];
     scanf("%s", &arr);
     printNumberBits(arr[1] - '0', 3);
@@ -171,28 +189,28 @@ void ADD() { // - STEP 1
     char adder[MAX_SIZE];
     scanf("%s", &adder);
     if (adder[0] == 'R') {
-        printf("000");
+        printstream("000");
         printNumberBits(adder[1] - '0', 3);
     } else if (adder[0] == '#') {
-        printf("1");
+        printstream("1");
         printNumberBits(imm(adder,5),5);
     }
-    printf("\n");
+    printstream("\n");
     return;
 }
 
 void AND();
 
 void BR(bool n, bool z, bool p) {
-    printf("0000");
-    if (n) { printf("1"); } else { printf("0"); }
-    if (z) { printf("1"); } else { printf("0"); }
-    if (p) { printf("1"); } else { printf("0"); }
+    printstream("0000");
+    if (n) { printstream("1"); } else { printstream("0"); }
+    if (z) { printstream("1"); } else { printstream("0"); }
+    if (p) { printstream("1"); } else { printstream("0"); }
 
     char * input[5];
     scanf("%s", &input);
     printNumberBits(imm(input,9), 9);
-    printf("\n");
+    printstream("\n");
     return;
 }
 
@@ -213,12 +231,12 @@ void LEA();
 void NOT(); // - STEP 1
 
 void RET() {
-    printf("1100000111000000\n");
+    printstream("1100000111000000\n");
     return;
 }
 
 void RTI() {
-    printf("1000000000000000\n");
+    printstream("1000000000000000\n");
     return;
 }
 
