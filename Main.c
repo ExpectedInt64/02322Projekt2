@@ -41,11 +41,15 @@ void main() {
         if (inp == 1) {
             printf("Enter file path or file name:");
             scanf("%s", &fileN);
+            inputStream = fopen(fileN, "r");
         } else {
-            char fileN[14] = "stdinpfile.txt";
+            inputStream = fopen("stdinpfile.txt", "r");
         }
-        inputStream = fopen(fileN, "r");
         outputStream = fopen("output.txt", "w");
+        if (outputStream == NULL) {
+            printf("failed to create output.txt file");
+            exit(EXIT_FAILURE);
+        }
 
     }
 
