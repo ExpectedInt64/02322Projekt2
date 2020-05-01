@@ -16,7 +16,7 @@ FILE *outputStream;
 void scanstream(char * arr[]);
 void printstream(char arr[]);
 void ADD(); //DONE - STEP 1
-void AND(); //not implemented
+void AND(); //DONE
 void BR(bool n, bool z, bool p); //DONE - STEP 1
 void JMP(); //not implemented
 void JSR(); //not implemented
@@ -67,7 +67,7 @@ void main() {
             ADD();
         }
         if (strcmp(input1, "AND") == 0) {
-            //AND();
+            AND();
         }
 
         if (input1[0] == 'B' && input1[1] == 'R') {
@@ -213,7 +213,25 @@ void ADD() { // - STEP 1
     return;
 }
 
-void AND();
+void AND(){
+    printstream("0101");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+    char adder[MAX_SIZE];
+    scanstream(*adder);
+    if (adder[0] == 'R') {
+        printstream("000");
+        printNumberBits(adder[1] - '0', 3);
+    } else if (adder[0] == '#') {
+        printstream("1");
+        printNumberBits(imm(adder,5),5);
+    }
+    printstream("\n");
+    return;
+}
 
 void BR(bool n, bool z, bool p) {
     printstream("0000");
