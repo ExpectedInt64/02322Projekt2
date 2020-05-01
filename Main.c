@@ -34,21 +34,26 @@ void STR(); //not implemented
 void TRAP(); //not implemented
 
 void main() {
-    printf("write \"0\" for default file mode, \"1\" for choose file mode, \"2\" for stdin mode");
-    char inp = getchar();
-    if (inp != "2") {
+    printf("write \"0\" for default file mode, \"1\" for choose file mode, \"2\" for stdin mode\n");
+    char inp[1];
+    scanf("%c", &inp);
+    if (inp[0] != '2') {
         filemode = true;
-        char fileN[50];
-        if (inp == 1) {
-            printf("Enter file path or file name:");
+        char fileN[64];
+        if (inp[0] == '1') {
+            printf("Enter file path or file name:\n");
             scanf("%s", &fileN);
             inputStream = fopen(fileN, "r");
         } else {
-            inputStream = fopen("stdinpfile.txt", "r");
+            inputStream = fopen("C:\\Users\\frede\\Documents\\DTU - UNI\\Maskinaer\\Aflevering2\\stdinpfile.txt", "r");
         }
         outputStream = fopen("output.txt", "w");
         if (outputStream == NULL) {
-            printf("failed to create output.txt file");
+            printf("failed to create output.txt");
+            exit(EXIT_FAILURE);
+        }
+        if (inputStream == NULL){
+            printf("failed to open input file");
             exit(EXIT_FAILURE);
         }
 
