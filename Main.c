@@ -31,7 +31,7 @@ void RTI(); //DONE
 void ST(); //DONE - STEP 1
 void STI(); //DONE
 void STR(); //DONE
-void TRAP(); //not implemented
+void TRAP(); //DONE
 
 void main() {
     printf("write \"0\" for default file mode, \"1\" for choose file mode, \"2\" for stdin mode\n");
@@ -123,7 +123,7 @@ void main() {
             STR();
         }
         if(strcmp(input1, "TRAP") == 0){
-            //TRAP();
+            TRAP();
         }
 
     }
@@ -180,6 +180,20 @@ void printNumberBits(int R, int bits){
     }
     return;
 
+}
+
+int cheatHexconvertion(char arr[]) {
+    if (strcmp(arr, "x20") == 0) {
+        return 32;
+    } else if (strcmp(arr, "x21") == 0) {
+        return 33;
+    } else if (strcmp(arr, "x22") == 0) {
+        return 34;
+    } else if (strcmp(arr, "x23") == 0) {
+        return 35;
+    } else {
+        return 37;
+    }
 }
 
 int imm(char arr[], int bits){
@@ -386,7 +400,13 @@ void STR(){
     return;
 }
 
-void TRAP();
+void TRAP(){
+    printstream("11110000");
+    char * input[4];
+    scanstream(*input);
+    printNumberBits(cheatHexconvertion(input), 8);
+    printstream("\n");
+}
 
 
 
