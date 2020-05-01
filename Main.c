@@ -28,7 +28,7 @@ void LEA(); //not implemented
 void NOT(); //DONE - STEP 1
 void RET(); //DONE
 void RTI(); //DONE
-void ST(); //not implemented - STEP 1
+void ST(); //DONE - STEP 1
 void STI(); //not implemented
 void STR(); //not implemented
 void TRAP(); //not implemented
@@ -114,7 +114,7 @@ void main() {
             RTI();
         }
         if(strcmp(input1, "ST") == 0){
-            //ST();
+            ST();
         }
         if(strcmp(input1, "STI") == 0){
             //STI();
@@ -305,7 +305,18 @@ void RTI() {
     return;
 }
 
-void ST();// - STEP 1
+void ST(){
+    printstream("0011");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+
+    char * input[5];
+    scanstream(*input);
+    printNumberBits(imm(input,9), 9);
+    printstream("\n");
+    return;
+}// - STEP 1
 
 void STI();
 
