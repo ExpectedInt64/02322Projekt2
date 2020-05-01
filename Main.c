@@ -132,6 +132,7 @@ void main() {
 void scanStream(char *arr) {
     if (filemode) {
         fgets(arr,200, inputStream);
+        printf("%s",arr);
     } else {
         scanf("%s", arr);
     }
@@ -228,22 +229,22 @@ void ADD() { // - STEP 1
 }
 
 void AND(){
-    printstream("0101");
+    printStream("0101");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
     char adder[MAX_SIZE];
-    scanstream(*adder);
+    scanStream(adder);
     if (adder[0] == 'R') {
-        printstream("000");
+        printStream("000");
         printNumberBits(adder[1] - '0', 3);
     } else if (adder[0] == '#') {
-        printstream("1");
+        printStream("1");
         printNumberBits(imm(adder,5),5);
     }
-    printstream("\n");
+    printStream("\n");
     return;
 }
 
@@ -261,91 +262,91 @@ void BR(bool n, bool z, bool p) {
 }
 
 void JMP() {
-    printstream("1100000");
+    printStream("1100000");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
-    printstream("000000\n");
+    printStream("000000\n");
 }
 
 void JSR(){
-    printstream("01001");
-    char * input[6];
-    scanstream(*input);
+    printStream("01001");
+    char *input;
+    scanStream(input);
     printNumberBits(imm(input,11), 11);
-    printstream("\n");
+    printStream("\n");
 }
 
 void JSRR(){
-    printstream("0100000");
+    printStream("0100000");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
-    printstream("000000\n");
+    printStream("000000\n");
 }
 
 void LD(){
-    printstream("0010");
+    printStream("0010");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[5];
-    scanstream(*input);
+    char * input;
+    scanStream(input);
     printNumberBits(imm(input,9), 9);
-    printstream("\n");
+    printStream("\n");
     return;
 } // - STEP 1
 
 void LDI(){
-    printstream("1010");
+    printStream("1010");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[5];
-    scanstream(*input);
+    char * input;
+    scanStream(input);
     printNumberBits(imm(input,9), 9);
-    printstream("\n");
+    printStream("\n");
     return;
 }
 
 void LDR(){
-    printstream("0110");
+    printStream("0110");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[4];
-    scanstream(*input);
+    char * input;
+    scanStream(input);
     printNumberBits(imm(input,6), 6);
-    printstream("\n");
+    printStream("\n");
     return;
 } // - STEP 1
 
 void LEA(){
-    printstream("1110");
+    printStream("1110");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[5];
-    scanstream(*input);
+    char * input;
+    scanStream(input);
     printNumberBits(imm(input,9), 9);
-    printstream("\n");
+    printStream("\n");
     return;
 }
 
 void NOT(){
-    printstream("1001");
+    printStream("1001");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
-    printstream("111111\n");
+    printStream("111111\n");
 
 } // - STEP 1
 
@@ -360,52 +361,52 @@ void RTI() {
 }
 
 void ST(){
-    printstream("0011");
+    printStream("0011");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[5];
-    scanstream(*input);
+    char * input;
+    scanStream(input);
     printNumberBits(imm(input,9), 9);
-    printstream("\n");
+    printStream("\n");
     return;
 }// - STEP 1
 
 void STI(){
-    printstream("1011");
+    printStream("1011");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[5];
-    scanstream(*input);
+    char * input;
+    scanStream(input);
     printNumberBits(imm(input,9), 9);
-    printstream("\n");
+    printStream("\n");
     return;
 }
 
 void STR(){
-    printstream("0111");
+    printStream("0111");
     char arr[R_BITS];
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
-    scanstream(*arr);
+    scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[4];
-    scanstream(*input);
+    char * input;
+    scanStream(input);
     printNumberBits(imm(input,6), 6);
-    printstream("\n");
+    printStream("\n");
     return;
 }
 
 void TRAP(){
-    printstream("11110000");
-    char * input[4];
-    scanstream(*input);
+    printStream("11110000");
+    char * input;
+    scanStream(input);
     printNumberBits(cheatHexconvertion(input), 8);
-    printstream("\n");
+    printStream("\n");
 }
 
 
