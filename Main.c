@@ -13,7 +13,8 @@ bool filemode = false;
 FILE *inputStream;
 FILE *outputStream;
 
-
+void scanstream(char * arr[]);
+void printstream(char arr[]);
 void ADD(); //DONE - STEP 1
 void AND(); //not implemented
 void BR(bool n, bool z, bool p); //DONE - STEP 1
@@ -56,11 +57,7 @@ void main() {
     while (1) {
         //printf("Hello world!\n");
         char input1[MAX_SIZE];
-        if (filemode) {
-            fscanf(inputStream, "%s", &input1);
-        } else {
-            scanf("%s", &input1);
-        }
+        scanstream(*input1);
         if (strcmp(input1, "ADD") == 0) {
             ADD();
         }
@@ -124,6 +121,14 @@ void main() {
             //TRAP();
         }
 
+    }
+}
+
+void scanstream(char * arr[]) {
+    if (filemode) {
+        fscanf(inputStream, "%s", &arr);
+    } else {
+        scanf("%s", &arr);
     }
 }
 
