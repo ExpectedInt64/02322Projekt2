@@ -10,6 +10,7 @@
 void printNumberBits(int R, int bits);
 int imm(char arr[], int bits);
 bool filemode = false;
+bool fileEOF = false;
 FILE *inputStream;
 FILE *outputStream;
 
@@ -63,6 +64,9 @@ void main() {
         //printf("Hello world!\n");
         char input1[MAX_SIZE];
         scanStream(input1);
+        if(fileEOF){
+            return;
+        }
         if (strcmp(input1, "ADD") == 0) {
             ADD();
         }
@@ -125,14 +129,15 @@ void main() {
         if(strcmp(input1, "TRAP") == 0){
             TRAP();
         }
-
     }
 }
 
 void scanStream(char *arr) {
     if (filemode) {
-        fgets(arr,200, inputStream);
-        printf("%s",arr);
+        if(fscanf(inputStream,"%s", arr) == EOF){
+            fileEOF = true;
+            return;
+        }
     } else {
         scanf("%s", arr);
     }
