@@ -18,11 +18,11 @@ void printstream(char arr[]);
 void ADD(); //DONE - STEP 1
 void AND(); //DONE
 void BR(bool n, bool z, bool p); //DONE - STEP 1
-void JMP(); //not implemented
-void JSR(); //not implemented
-void JSRR(); //not implemented
+void JMP(); //DONE
+void JSR(); //DONE
+void JSRR(); //DONE
 void LD(); //DONE - STEP 1
-void LDI(); //not implemented
+void LDI(); //DONE
 void LDR(); //DONE - STEP 1
 void LEA(); //not implemented
 void NOT(); //DONE - STEP 1
@@ -84,19 +84,19 @@ void main() {
             BR(n, z, p);
         }
         if(strcmp(input1, "JMP") == 0){
-            //JMP();
+            JMP();
         }
         if(strcmp(input1, "JSR") == 0){
-            //JSR();
+            JSR();
         }
         if(strcmp(input1, "JSRR") == 0){
-            //JSRR();
+            JSRR();
         }
         if(strcmp(input1, "LD") == 0){
             LD();
         }
         if(strcmp(input1, "LDI") == 0){
-            //LDI();
+            LDI();
         }
         if(strcmp(input1, "LDR") == 0){
             LDR();
@@ -246,11 +246,29 @@ void BR(bool n, bool z, bool p) {
     return;
 }
 
-void JMP();
+void JMP() {
+    printstream("1100000");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+    printstream("000000\n");
+}
 
-void JSR();
+void JSR(){
+    printstream("01001");
+    char * input[6];
+    scanstream(*input);
+    printNumberBits(imm(input,11), 11);
+    printstream("\n");
+}
 
-void JSRR();
+void JSRR(){
+    printstream("0100000");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+    printstream("000000\n");
+}
 
 void LD(){
     printstream("0010");
@@ -265,7 +283,18 @@ void LD(){
     return;
 } // - STEP 1
 
-void LDI();
+void LDI(){
+    printstream("1010");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+
+    char * input[5];
+    scanstream(*input);
+    printNumberBits(imm(input,9), 9);
+    printstream("\n");
+    return;
+}
 
 void LDR(){
     printstream("0110");
@@ -282,7 +311,18 @@ void LDR(){
     return;
 } // - STEP 1
 
-void LEA();
+void LEA(){
+    printstream("1110");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+
+    char * input[5];
+    scanstream(*input);
+    printNumberBits(imm(input,9), 9);
+    printstream("\n");
+    return;
+}
 
 void NOT(){
     printstream("1001");
