@@ -9,6 +9,7 @@
 
 void printNumberBits(int R, int bits);
 int imm(char arr[], int bits);
+bool filemode = false;
 
 void ADD(); //DONE - STEP 1
 void AND(); //not implemented
@@ -29,8 +30,18 @@ void STR(); //not implemented
 void TRAP(); //not implemented
 
 void main() {
+    printf("write \"0\" for file mode, \"1\" for stdin mode");
+    char inp = getchar();
+    if (inp == "0") {
+        filemode = true;
+    }
+
+
     while (1) {
         //printf("Hello world!\n");
+
+
+
         char input1[MAX_SIZE];
 
         scanf("%s", &input1);
