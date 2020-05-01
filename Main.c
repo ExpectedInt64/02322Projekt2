@@ -25,7 +25,7 @@ void LD(); //DONE - STEP 1
 void LDI(); //not implemented
 void LDR(); //DONE - STEP 1
 void LEA(); //not implemented
-void NOT(); //not implemented - STEP 1
+void NOT(); //DONE - STEP 1
 void RET(); //DONE
 void RTI(); //DONE
 void ST(); //not implemented - STEP 1
@@ -105,7 +105,7 @@ void main() {
             //LEA();
         }
         if(strcmp(input1, "NOT") == 0){
-            //NOT();
+            NOT();
         }
         if(strcmp(input1, "RET") == 0){
             RET();
@@ -284,7 +284,16 @@ void LDR(){
 
 void LEA();
 
-void NOT(); // - STEP 1
+void NOT(){
+    printstream("1001");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+    printstream("111111\n");
+
+} // - STEP 1
 
 void RET() {
     printstream("1100000111000000\n");
