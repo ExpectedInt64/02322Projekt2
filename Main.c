@@ -45,7 +45,7 @@ void main() {
             scanf("%s", &fileN);
             inputStream = fopen(fileN, "r");
         } else {
-            inputStream = fopen("C:\\Users\\frede\\Documents\\DTU - UNI\\Maskinaer\\Aflevering2\\stdinpfile.txt", "r");
+            inputStream = fopen("stdinpfile.txt", "r");
         }
         outputStream = fopen("output.txt", "w");
         if (outputStream == NULL) {
