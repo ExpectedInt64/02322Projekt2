@@ -191,12 +191,12 @@ int imm(char arr[], int bits){
 void ADD() { // - STEP 1
     printstream("0001");
     char arr[R_BITS];
-    scanf("%s", &arr);
+    scanstream(*arr);
     printNumberBits(arr[1] - '0', 3);
-    scanf("%s", &arr);
+    scanstream(*arr);
     printNumberBits(arr[1] - '0', 3);
     char adder[MAX_SIZE];
-    scanf("%s", &adder);
+    scanstream(*adder);
     if (adder[0] == 'R') {
         printstream("000");
         printNumberBits(adder[1] - '0', 3);
@@ -217,7 +217,7 @@ void BR(bool n, bool z, bool p) {
     if (p) { printstream("1"); } else { printstream("0"); }
 
     char * input[5];
-    scanf("%s", &input);
+    scanstream(*input);
     printNumberBits(imm(input,9), 9);
     printstream("\n");
     return;
