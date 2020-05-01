@@ -24,7 +24,7 @@ void JSRR(); //DONE
 void LD(); //DONE - STEP 1
 void LDI(); //DONE
 void LDR(); //DONE - STEP 1
-void LEA(); //not implemented
+void LEA(); //DONE
 void NOT(); //DONE - STEP 1
 void RET(); //DONE
 void RTI(); //DONE
@@ -102,7 +102,7 @@ void main() {
             LDR();
         }
         if(strcmp(input1, "LEA") == 0){
-            //LEA();
+            LEA();
         }
         if(strcmp(input1, "NOT") == 0){
             NOT();
