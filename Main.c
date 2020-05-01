@@ -409,7 +409,7 @@ void STR(){
 void TRAP(){
     printStream("11110000");
     char * input;
-    scanStream(input);
+    scanStream(input);  //FIXME!!!
     printNumberBits(cheatHexconvertion(input), 8);
     printStream("\n");
 }
