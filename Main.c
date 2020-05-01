@@ -23,7 +23,7 @@ void JSR(); //not implemented
 void JSRR(); //not implemented
 void LD(); //DONE - STEP 1
 void LDI(); //not implemented
-void LDR(); //not implemented - STEP 1
+void LDR(); //DONE - STEP 1
 void LEA(); //not implemented
 void NOT(); //not implemented - STEP 1
 void RET(); //DONE
@@ -99,7 +99,7 @@ void main() {
             //LDI();
         }
         if(strcmp(input1, "LDR") == 0){
-            //LDR();
+            LDR();
         }
         if(strcmp(input1, "LEA") == 0){
             //LEA();
@@ -263,12 +263,24 @@ void LD(){
     printNumberBits(imm(input,9), 9);
     printstream("\n");
     return;
-
 } // - STEP 1
 
 void LDI();
 
-void LDR(); // - STEP 1
+void LDR(){
+    printstream("0110");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+
+    char * input[4];
+    scanstream(*input);
+    printNumberBits(imm(input,6), 6);
+    printstream("\n");
+    return;
+} // - STEP 1
 
 void LEA();
 
