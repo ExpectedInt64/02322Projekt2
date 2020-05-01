@@ -21,7 +21,7 @@ void BR(bool n, bool z, bool p); //DONE - STEP 1
 void JMP(); //not implemented
 void JSR(); //not implemented
 void JSRR(); //not implemented
-void LD(); //not implemented - STEP 1
+void LD(); //DONE - STEP 1
 void LDI(); //not implemented
 void LDR(); //not implemented - STEP 1
 void LEA(); //not implemented
@@ -93,7 +93,7 @@ void main() {
             //JSRR();
         }
         if(strcmp(input1, "LD") == 0){
-            //LD();
+            LD();
         }
         if(strcmp(input1, "LDI") == 0){
             //LDI();
@@ -252,7 +252,19 @@ void JSR();
 
 void JSRR();
 
-void LD(); // - STEP 1
+void LD(){
+    printstream("0010");
+    char arr[R_BITS];
+    scanstream(*arr);
+    printNumberBits(arr[1] - '0', 3);
+
+    char * input[5];
+    scanstream(*input);
+    printNumberBits(imm(input,9), 9);
+    printstream("\n");
+    return;
+
+} // - STEP 1
 
 void LDI();
 
