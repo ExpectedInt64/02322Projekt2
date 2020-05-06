@@ -340,7 +340,7 @@ void LDI(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[5];
+    char input[5];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
