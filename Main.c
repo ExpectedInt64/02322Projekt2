@@ -259,7 +259,7 @@ void BR(bool n, bool z, bool p) {
     if (z) { printStream("1"); } else { printStream("0"); }
     if (p) { printStream("1"); } else { printStream("0"); }
 
-    char *input;
+    char * input[5];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
@@ -276,7 +276,7 @@ void JMP() {
 
 void JSR(){
     printStream("01001");
-    char *input;
+    char * input[6];
     scanStream(input);
     printNumberBits(imm(input,11), 11);
     printStream("\n");
@@ -296,7 +296,7 @@ void LD(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input;
+    char * input[5];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
