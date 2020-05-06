@@ -155,7 +155,7 @@ void printNumberBits(int R, int bits){
     bool negative = false;
     if (R < 0){
         negative = true;
-        R =  -R + 1;
+        R =  -R - 1;
     }
     int R_arr[bits] ;
     int i;
