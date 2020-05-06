@@ -309,7 +309,7 @@ void LDI(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input;
+    char * input[5];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
@@ -324,7 +324,7 @@ void LDR(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input;
+    char * input[4];
     scanStream(input);
     printNumberBits(imm(input,6), 6);
     printStream("\n");
@@ -337,7 +337,7 @@ void LEA(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input;
+    char * input[5];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
@@ -408,7 +408,7 @@ void STR(){
 
 void TRAP(){
     printStream("11110000");
-    char * input;
+    char * input[5];
     scanStream(input);  //FIXME!!!
     printNumberBits(cheatHexconvertion(input), 8);
     printStream("\n");
