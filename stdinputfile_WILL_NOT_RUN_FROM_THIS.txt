@@ -1,4 +1,4 @@
-Code under here is to be placed in the ./cmake-build-debug/stdinpfile.txt to run. This file is here for sharing.
+Code under here is to be placed in the ./cmake-build-debug/stdinpfile.txt to run in mode 0. This file is here for sharing.
 
 AND R1, R1, #0
 AND R2, R2, #0
