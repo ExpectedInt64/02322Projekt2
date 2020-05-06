@@ -9,10 +9,14 @@
 
 void printNumberBits(int R, int bits);
 int imm(char arr[], int bits);
+int findOffset(char label[]);
+int pointList[128];
+char labels[512];
 bool filemode = false;
 bool fileEOF = false;
 FILE *inputStream;
 FILE *outputStream;
+char fileN[] = "stdinpfile.txt";
 
 void scanStream(char *arr);
 void printStream(char *arr);
@@ -40,13 +44,13 @@ void main() {
     scanf("%d", &inp);
     if (inp != 2) {
         filemode = true;
-        char fileN[64];
         if (inp == 1) {
+            char fileN[64];
             printf("Enter file path or file name:\n");
             scanf("%s", &fileN);
             inputStream = fopen(fileN, "r");
         } else {
-            inputStream = fopen("stdinpfile.txt", "r");
+            inputStream = fopen(fileN, "r");
         }
         outputStream = fopen("output.txt", "w");
         if (outputStream == NULL) {
@@ -210,6 +214,33 @@ int imm(char arr[], int bits){
     int i;
     sscanf(temp_arr,"%d",&i);
     return i;
+}
+
+int findOffset(char label[]){
+    int i = 0;
+    int pointerIndex = -1;
+    while (labels[i] != NULL) {
+        char tmp[32];
+        int j = 0;
+        while (labels[i + j] != ' ' || labels[i + j] != NULL) {
+            if (j == 32) {
+                printf("Too Big label");
+                exit(EXIT_FAILURE);
+            }
+            tmp[j] = labels[i + j];
+            j++;
+        }
+        pointerIndex++;
+        if (strcmp(label, tmp) == 0) {
+            return pointList[pointerIndex];
+        }
+        i += j + 1;
+    }
+    //Label not found before. search file for label:
+    FILE *tmpInputStream = fopen(fileN, "r");
+    //TODO: Find label in function
+
+    return 0;
 }
 
 // for implementation
@@ -409,7 +440,7 @@ void STR(){
 void TRAP(){
     printStream("11110000");
     char input[5];
-    scanStream(input);  //FIXME!!!
+    scanStream(input);  
     printNumberBits(cheatHexconvertion(input), 8);
     printStream("\n");
 }
