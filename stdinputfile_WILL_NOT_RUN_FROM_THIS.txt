@@ -1,0 +1,23 @@
+Code under here is to be placed in the ./cmake-build-debug/stdinpfile.txt to run. This file is here for sharing.
+
+AND R1, R1, #0
+AND R2, R2, #0
+ADD R1, R1, #10
+ADD R1, R1, R1
+NOT R1, R1
+ADD R1, R1, #19
+BRz #68
+BRnp #-55
+JMP R1
+JSR #1000
+JSRR R1
+LD R1, #-11
+LDI R1, #25
+LDR R2, R6, #0
+LEA R1, #-250
+RET
+RTI
+ST R1, #111
+STI R1, #0
+STR R1, R2, #5
+TRAP x22
