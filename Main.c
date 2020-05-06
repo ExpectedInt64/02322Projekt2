@@ -37,6 +37,7 @@ void ST(); //DONE - STEP 1
 void STI(); //DONE
 void STR(); //DONE
 void TRAP(); //DONE
+void FILL();
 
 void main() {
     printf("write \"0\" for default file mode, \"1\" for choose file mode, \"2\" for stdin mode\n");
@@ -132,6 +133,9 @@ void main() {
         }
         if(strcmp(input1, "TRAP") == 0){
             TRAP();
+        }
+        if(strcmp(input1, ".FILL")==0){
+            FILL();
         }
     }
 }
@@ -443,6 +447,10 @@ void TRAP(){
     scanStream(input);  
     printNumberBits(cheatHexconvertion(input), 8);
     printStream("\n");
+}
+
+void FILL(){
+ //kør noget sejt kode her
 }
 
 
