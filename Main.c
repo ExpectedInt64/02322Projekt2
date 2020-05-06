@@ -259,7 +259,7 @@ void BR(bool n, bool z, bool p) {
     if (z) { printStream("1"); } else { printStream("0"); }
     if (p) { printStream("1"); } else { printStream("0"); }
 
-    char * input[5];
+    char input[5];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
@@ -276,7 +276,7 @@ void JMP() {
 
 void JSR(){
     printStream("01001");
-    char * input[6];
+    char input[6];
     scanStream(input);
     printNumberBits(imm(input,11), 11);
     printStream("\n");
@@ -296,7 +296,7 @@ void LD(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[5];
+    char input[5];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
@@ -324,7 +324,7 @@ void LDR(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[4];
+    char input[4];
     scanStream(input);
     printNumberBits(imm(input,6), 6);
     printStream("\n");
@@ -337,7 +337,7 @@ void LEA(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[5];
+    char input[5];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
@@ -371,7 +371,7 @@ void ST(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[6];
+    char input[6];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
@@ -384,7 +384,7 @@ void STI(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[6];
+    char input[6];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
@@ -399,7 +399,7 @@ void STR(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input[5];
+    char input[5];
     scanStream(input);
     printNumberBits(imm(input,6), 6);
     printStream("\n");
@@ -408,7 +408,7 @@ void STR(){
 
 void TRAP(){
     printStream("11110000");
-    char * input[5];
+    char input[5];
     scanStream(input);  //FIXME!!!
     printNumberBits(cheatHexconvertion(input), 8);
     printStream("\n");
