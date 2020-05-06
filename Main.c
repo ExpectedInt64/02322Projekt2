@@ -371,7 +371,7 @@ void ST(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input;
+    char * input[6];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
@@ -384,7 +384,7 @@ void STI(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input;
+    char * input[6];
     scanStream(input);
     printNumberBits(imm(input,9), 9);
     printStream("\n");
@@ -399,7 +399,7 @@ void STR(){
     scanStream(arr);
     printNumberBits(arr[1] - '0', 3);
 
-    char * input;
+    char * input[5];
     scanStream(input);
     printNumberBits(imm(input,6), 6);
     printStream("\n");
