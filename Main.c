@@ -531,9 +531,12 @@ void TRAP(){
 }
 
 void FILL(){
- //kør noget sejt kode her
- //men Lasse hvad er sej kode?
- //idk, hvad med noget kode der kan oversætte hex til et decimanltal?
+    char hex[4];
+    scanStream(hex);
+    printNumberBits(hexconvertion(hex, 4), 16);
+    printf("\n");
+
+
 }
 
 
