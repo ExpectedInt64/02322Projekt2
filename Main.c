@@ -10,7 +10,12 @@
 int hexconvertion(char arr[], int size);
 void printNumberBits(int R, int bits);
 int imm(char arr[], int bits);
-int findOffset(char label[]);
+
+int findLabelPointer(char label[]);
+void insertLabel(char label[], int lineNumber);
+int calcLabelPointer(char label[], int currentLine);
+int labelExist(char label[]);
+
 int pointList[128];
 char labels[512];
 bool filemode = false;
@@ -65,6 +70,8 @@ void main() {
 
     }
 
+
+    int lineNumber = 0;
     while (1) {
         //printf("Hello world!\n");
         char input1[MAX_SIZE];
@@ -72,14 +79,13 @@ void main() {
         if(fileEOF){
             return;
         }
-        if (strcmp(input1, "ADD") == 0) {
+        else if (strcmp(input1, "ADD") == 0) {
             ADD();
         }
-        if (strcmp(input1, "AND") == 0) {
+        else if (strcmp(input1, "AND") == 0) {
             AND();
         }
-
-        if (input1[0] == 'B' && input1[1] == 'R') {
+        else if (input1[0] == 'B' && input1[1] == 'R') {
             bool n = false;
             bool z = false;
             bool p = false;
@@ -92,48 +98,59 @@ void main() {
             }
             BR(n, z, p);
         }
-        if(strcmp(input1, "JMP") == 0){
+        else if(strcmp(input1, "JMP") == 0){
             JMP();
         }
-        if(strcmp(input1, "JSR") == 0){
+        else if(strcmp(input1, "JSR") == 0){
             JSR();
         }
-        if(strcmp(input1, "JSRR") == 0){
+        else if(strcmp(input1, "JSRR") == 0){
             JSRR();
         }
-        if(strcmp(input1, "LD") == 0){
+        else if(strcmp(input1, "LD") == 0){
             LD();
         }
-        if(strcmp(input1, "LDI") == 0){
+        else if(strcmp(input1, "LDI") == 0){
             LDI();
         }
-        if(strcmp(input1, "LDR") == 0){
+        else if(strcmp(input1, "LDR") == 0){
             LDR();
         }
-        if(strcmp(input1, "LEA") == 0){
+        else if(strcmp(input1, "LEA") == 0){
             LEA();
         }
-        if(strcmp(input1, "NOT") == 0){
+        else if(strcmp(input1, "NOT") == 0){
             NOT();
         }
-        if(strcmp(input1, "RET") == 0){
+        else if(strcmp(input1, "RET") == 0){
             RET();
         }
-        if(strcmp(input1, "RTI") == 0){
+        else if(strcmp(input1, "RTI") == 0){
             RTI();
         }
-        if(strcmp(input1, "ST") == 0){
+        else if(strcmp(input1, "ST") == 0){
             ST();
         }
-        if(strcmp(input1, "STI") == 0){
+        else if(strcmp(input1, "STI") == 0){
             STI();
         }
-        if(strcmp(input1, "STR") == 0){
+        else if(strcmp(input1, "STR") == 0){
             STR();
         }
-        if(strcmp(input1, "TRAP") == 0){
+        else if(strcmp(input1, "TRAP") == 0){
             TRAP();
         }
+
+
+
+        else { //label
+            int c;
+            if (c = labelExist(input1) == NULL) {
+                insertLabel(input1, lineNumber);
+            }
+        }
+
+        lineNumber++;
     }
 }
 
@@ -193,7 +210,7 @@ void printNumberBits(int R, int bits){
 
 }
 
-int hexconvertion(char arr[], int size){
+int hexconvertion(char arr[], int size){ // size is size of chararr
     int i = 1;
     int r = 0;
     while (i < size){
@@ -231,18 +248,32 @@ int imm(char arr[], int bits){
     return i;
 }
 
-int findOffset(char label[]){
+void insertLabel(char label[], int lineNumber){
     int i = 0;
+    while (labels[i++] != NULL){}
+    int size = strlen(label);
+    int j = 0;
+    while (j < size){
+        labels[i + j] = label[j];
+    }
+    labels[i + j + 1] = ' ';
+    i = 0;
+    while (pointList[i++] != NULL){}
+    pointList[i] = lineNumber;
+}
+
+int labelExist(char label[]) {
+    int labelIndex = 0;
     int pointerIndex = 0;
-    while (labels[i] != NULL) {
+    while (labels[labelIndex] != NULL) {
         char tmp[32];
         int j = 0;
-        while (labels[i + j] != ' ' || labels[i + j] != NULL) {
+        while (labels[labelIndex + j] != ' ' || labels[ + j] != NULL) {
             if (j == 32) {
                 printf("Too Big label");
                 exit(EXIT_FAILURE);
             }
-            tmp[j] = labels[i + j];
+            tmp[j] = labels[labelIndex + j];
             j++;
         }
 
@@ -250,14 +281,45 @@ int findOffset(char label[]){
             return pointList[pointerIndex];
         }
         pointerIndex++;
-        i += j + 1;
+        labelIndex += j + 1;
+    }
+    return NULL;
+}
+
+int findLabelPointer(char label[]){
+    int foundNumber = labelExist(label);
+    if (foundNumber != NULL) {
+        return foundNumber;
     }
     //Label not found before. search file for label:
     FILE *tmpInputStream = fopen(fileN, "r");
-    //TODO: Find label in function
+    int lineNumber = 0;
+    while (!feof(tmpInputStream)) {
+        char line[50];
+        int i = 0;
+        int c;
+        while (c = fgetc(tmpInputStream) != '\n') {
+            line[i++] = c;
+        }
+        int size = strlen(label);
+        char tmpLabel[size];
+        i = 0;
+        while (i < size){
+            tmpLabel[i] = line[i];
+        }
+        if (strcmp(label, tmpLabel) == 0) { // found label
+            insertLabel(label, lineNumber);
+            return lineNumber;
+        }
+        lineNumber++;
+    }
+    printf("Error: Label not found");
+    exit(EXIT_FAILURE);
+}
 
-
-    return 0;
+int calcLabelPointer(char label[], int currentLine){
+    int labelLineNumber = findLabelPointer(label);
+    return labelLineNumber - currentLine;
 }
 
 // for implementation
