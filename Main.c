@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <math.h>
 #include "stdio.h"
 #include "string.h"
 #include "stdlib.h"
@@ -6,7 +7,7 @@
 #define MAX_SIZE 5
 #define R_BITS 3
 
-
+int hexconvertion(char arr[], int size);
 void printNumberBits(int R, int bits);
 int imm(char arr[], int bits);
 int findOffset(char label[]);
@@ -192,18 +193,32 @@ void printNumberBits(int R, int bits){
 
 }
 
-int cheatHexconvertion(char arr[]) {
-    if (strcmp(arr, "x20") == 0) {
-        return 32;
-    } else if (strcmp(arr, "x21") == 0) {
-        return 33;
-    } else if (strcmp(arr, "x22") == 0) {
-        return 34;
-    } else if (strcmp(arr, "x23") == 0) {
-        return 35;
-    } else {
-        return 37;
+int hexconvertion(char arr[], int size){
+    int i = 1;
+    int r = 0;
+    while (i < size){
+        int current = (int) arr[i] - 48;
+        //printf("%d\n", current);
+        if (current > 9) {
+            current -= 7;
+        }
+        int hexCount = (size - 1 - i);
+        // doing pow self
+        int j = 1;
+        int counter = 0;
+        while (counter < hexCount) {
+            if (j == 1) {
+                j = 16;
+            } else {
+                j = j * 16;
+            }
+            counter++;
+        }
+
+        r += current * j;
+        i += 1;
     }
+    return r;
 }
 
 int imm(char arr[], int bits){
@@ -441,7 +456,7 @@ void TRAP(){
     printStream("11110000");
     char input[5];
     scanStream(input);  
-    printNumberBits(cheatHexconvertion(input), 8);
+    printNumberBits(hexconvertion(input, 3), 8);
     printStream("\n");
 }
 
