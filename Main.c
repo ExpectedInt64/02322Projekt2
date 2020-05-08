@@ -233,7 +233,7 @@ int imm(char arr[], int bits){
 
 int findOffset(char label[]){
     int i = 0;
-    int pointerIndex = -1;
+    int pointerIndex = 0;
     while (labels[i] != NULL) {
         char tmp[32];
         int j = 0;
@@ -245,15 +245,17 @@ int findOffset(char label[]){
             tmp[j] = labels[i + j];
             j++;
         }
-        pointerIndex++;
+
         if (strcmp(label, tmp) == 0) {
             return pointList[pointerIndex];
         }
+        pointerIndex++;
         i += j + 1;
     }
     //Label not found before. search file for label:
     FILE *tmpInputStream = fopen(fileN, "r");
     //TODO: Find label in function
+
 
     return 0;
 }
