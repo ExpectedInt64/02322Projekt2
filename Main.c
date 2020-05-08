@@ -1,10 +1,9 @@
 #include <stdbool.h>
-#include <math.h>
 #include "stdio.h"
 #include "string.h"
 #include "stdlib.h"
 
-#define MAX_SIZE 5
+#define MAX_SIZE 15
 #define R_BITS 3
 
 int hexconvertion(char arr[], int size);
@@ -148,6 +147,7 @@ void main() {
         else { //label
             int c;
             if (c = labelExist(input1) == NULL) {
+                printf(input1[0]); // breaks! TODO: Fix
                 insertLabel(input1, lineNumber);
             }
         }
@@ -251,13 +251,17 @@ int imm(char arr[], int bits){
 }
 
 void insertLabel(char label[], int lineNumber){
-    int i = 0;
-    while (labels[i++] != NULL){}
+    printf(label[1] + " \n");
+    int i = -1;
+    while (labels[++i] != NULL){}
     int size = strlen(label);
+    printf("size = %d\n", size);
     int j = 0;
     while (j < size){
+        printf(label[j]);
         labels[i + j] = label[j];
     }
+    printf("test");
     labels[i + j + 1] = ' ';
     i = 0;
     while (pointList[i++] != NULL){}
