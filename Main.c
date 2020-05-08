@@ -466,7 +466,7 @@ void TRAP(){
     printStream("\n");
 }
 
-void hextobin(char ascii[]){
+void FILL(){
  //kør noget sejt kode her
  //men Lasse hvad er sej kode?
  //idk, hvad med noget kode der kan oversætte hex til et decimanltal?
