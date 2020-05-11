@@ -3,7 +3,7 @@
 #include "string.h"
 #include "stdlib.h"
 
-#define MAX_SIZE 15
+#define MAX_SIZE 50
 #define R_BITS 3
 
 int hexconvertion(char arr[], int size);
@@ -72,6 +72,7 @@ void main() {
 
     int lineNumber = 0;
     while (1) {
+        bool lineSwitch = true;
         //printf("Hello world!\n");
         char input1[MAX_SIZE];
         scanStream(input1);
@@ -149,10 +150,13 @@ void main() {
             if (c = labelExist(input1) == 0) {
                 //printf("%d\n", c); // breaks! TODO: Fix
                 insertLabel(input1, lineNumber);
+                lineSwitch = false;
             }
         }
 
-        lineNumber++;
+        if (lineSwitch) {
+            lineNumber++;
+        }
     }
 }
 
@@ -253,14 +257,20 @@ void insertLabel(char label[], int lineNumber){
     int i = -1;
     while (labels[++i] != NULL){}
     int size = strlen(label);
+    if (size > 32) {
+        printStream("Too Big label");
+        exit(EXIT_FAILURE);
+    }
     int j = 0;
     while (j < size){
         labels[i + j] = label[j];
         j++;
     }
-    labels[i + j + 1] = ' ';
+    labels[i + j] = ' ';
     i = 0;
-    while (pointList[i++] != NULL){}
+    while (pointList[i] != NULL){
+        i++;
+    }
     pointList[i] = lineNumber;
 }
 
@@ -270,9 +280,9 @@ int labelExist(char label[]) {
     while (labels[labelIndex] != NULL) {
         char tmp[32];
         int j = 0;
-        while (labels[labelIndex + j] != ' ' || labels[labelIndex + j] != NULL) {
+        while (labels[labelIndex + j] != ' ' && labels[labelIndex + j] != NULL) {
             if (j == 32) {
-                printf("Too Big label");
+                printStream("Too Big label");
                 exit(EXIT_FAILURE);
             }
             tmp[j] = labels[labelIndex + j];
