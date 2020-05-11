@@ -27,7 +27,7 @@ void scanStream(char *arr);
 void printStream(char *arr);
 void ADD(); //DONE - STEP 1
 void AND(); //DONE
-void BR(bool n, bool z, bool p); //DONE - STEP 1
+void BR(bool n, bool z, bool p, int currentline); //DONE - STEP 1
 void JMP(); //DONE
 void JSR(); //DONE
 void JSRR(); //DONE
@@ -97,7 +97,7 @@ void main() {
                     if (input1[i] == 'p') { p = true; }
                 }
             }
-            BR(n, z, p);
+            BR(n, z, p, lineNumber);
         }
         else if(strcmp(input1, "JMP") == 0){
             JMP();
@@ -147,7 +147,7 @@ void main() {
 
         else { //label
             int c;
-            if (c = labelExist(input1) == 0) {
+            if (c = labelExist(input1) == -1) {
                 //printf("%d\n", c); // breaks! TODO: Fix
                 insertLabel(input1, lineNumber);
                 lineSwitch = false;
@@ -254,33 +254,35 @@ int imm(char arr[], int bits){
 }
 
 void insertLabel(char label[], int lineNumber){
-    int i = -1;
-    while (labels[++i] != NULL){}
-    int size = strlen(label);
-    if (size > 32) {
-        printStream("Too Big label");
-        exit(EXIT_FAILURE);
+    if (labelExist(label) == -1) {
+        int i = -1;
+        while (labels[++i] != NULL) {}
+        int size = strlen(label);
+        if (size > 32) {
+            printStream("Too Big label");
+            exit(EXIT_FAILURE);
+        }
+        int j = 0;
+        while (j < size) {
+            labels[i + j] = label[j];
+            j++;
+        }
+        labels[i + j] = '|';
+        i = 0;
+        while (pointList[i] != NULL) {
+            i++;
+        }
+        pointList[i] = lineNumber;
     }
-    int j = 0;
-    while (j < size){
-        labels[i + j] = label[j];
-        j++;
-    }
-    labels[i + j] = ' ';
-    i = 0;
-    while (pointList[i] != NULL){
-        i++;
-    }
-    pointList[i] = lineNumber;
 }
 
 int labelExist(char label[]) {
     int labelIndex = 0;
     int pointerIndex = 0;
     while (labels[labelIndex] != NULL) {
-        char tmp[32];
+        char tmp[] = "                                ";
         int j = 0;
-        while (labels[labelIndex + j] != ' ' && labels[labelIndex + j] != NULL) {
+        while (labels[labelIndex + j] != '|' && labels[labelIndex + j] != NULL) {
             if (j == 32) {
                 printStream("Too Big label");
                 exit(EXIT_FAILURE);
@@ -289,41 +291,52 @@ int labelExist(char label[]) {
             j++;
         }
 
-        if (strcmp(label, tmp) == 0) {
-            return pointList[pointerIndex];
+        bool same = true;
+        if (j == strlen(label)) {
+            for (int i = 0; i < j; i++) {
+                if (label[i] != tmp[i]) {
+                    same = false;
+                    break;
+                }
+            }
+            if (same) {
+                return pointList[pointerIndex];
+            }
         }
         pointerIndex++;
         labelIndex += j + 1;
     }
-    return 0;
+    return -1;
 }
 
 int findLabelPointer(char label[]){
     int foundNumber = labelExist(label);
-    if (foundNumber != NULL) {
+    if (foundNumber != -1) {
         return foundNumber;
     }
     //Label not found before. search file for label:
-    FILE *tmpInputStream = fopen(fileN, "r");
-    int lineNumber = 0;
-    while (!feof(tmpInputStream)) {
-        char line[50];
-        int i = 0;
-        int c;
-        while (c = fgetc(tmpInputStream) != '\n') {
-            line[i++] = c;
+    if (filemode) {
+        FILE *tmpInputStream = fopen(fileN, "r");
+        int lineNumber = 0;
+        while (!feof(tmpInputStream)) {
+            char line[50];
+            int i = 0;
+            int c;
+            while (c = fgetc(tmpInputStream) != '\n') {
+                line[i++] = c;
+            }
+            int size = strlen(label);
+            char tmpLabel[size];
+            i = 0;
+            while (i < size) {
+                tmpLabel[i] = line[i];
+            }
+            if (strcmp(label, tmpLabel) == 0) { // found label
+                insertLabel(label, lineNumber);
+                return lineNumber;
+            }
+            lineNumber++;
         }
-        int size = strlen(label);
-        char tmpLabel[size];
-        i = 0;
-        while (i < size){
-            tmpLabel[i] = line[i];
-        }
-        if (strcmp(label, tmpLabel) == 0) { // found label
-            insertLabel(label, lineNumber);
-            return lineNumber;
-        }
-        lineNumber++;
     }
     printf("Error: Label not found");
     exit(EXIT_FAILURE);
@@ -375,7 +388,7 @@ void AND(){
     return;
 }
 
-void BR(bool n, bool z, bool p) {
+void BR(bool n, bool z, bool p, int currentline) {
     printStream("0000");
     if (n) { printStream("1"); } else { printStream("0"); }
     if (z) { printStream("1"); } else { printStream("0"); }
@@ -383,8 +396,13 @@ void BR(bool n, bool z, bool p) {
 
     char input[5];
     scanStream(input);
-    printNumberBits(imm(input,9), 9);
-    printStream("\n");
+    if (input[0] == '#') {
+        printNumberBits(imm(input, 9), 9);
+        printStream("\n");
+    } else {
+        printNumberBits(calcLabelPointer(input, currentline), 9);
+        printStream("\n");
+    }
     return;
 }
 
