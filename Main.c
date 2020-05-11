@@ -70,10 +70,9 @@ void main() {
 
     }
 
-    int lineNumber = 0;
+    int lineNumber = 1;
     while (1) {
         bool lineSwitch = true;
-        //printf("Hello world!\n");
         char input1[MAX_SIZE];
         scanStream(input1);
         if(fileEOF){
@@ -148,7 +147,6 @@ void main() {
         else { //label
             int c;
             if (c = labelExist(input1) == -1) {
-                //printf("%d\n", c); // breaks! TODO: Fix
                 insertLabel(input1, lineNumber);
                 lineSwitch = false;
             }
