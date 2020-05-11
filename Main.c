@@ -7,17 +7,12 @@
 #define R_BITS 3
 
 int hexconvertion(char arr[], int size);
-
 void printNumberBits(int R, int bits);
-
 int imm(char arr[], int bits);
 
 int findLabelPointer(char label[]);
-
 void insertLabel(char label[], int lineNumber);
-
 int calcLabelPointer(char label[], int currentLine);
-
 int labelExist(char label[]);
 
 int pointList[128];
@@ -29,12 +24,10 @@ FILE *outputStream;
 char fileN[] = "stdinpfile.txt";
 
 void scanStream(char *arr);
-
 void printStream(char *arr);
-
 void ADD(); //DONE - STEP 1
 void AND(); //DONE
-void BR(bool n, bool z, bool p); //DONE - STEP 1
+void BR(bool n, bool z, bool p, int currentline); //DONE - STEP 1
 void JMP(); //DONE
 void JSR(); //DONE
 void JSRR(); //DONE
@@ -71,7 +64,7 @@ void main() {
             printf("failed to create output.txt");
             exit(EXIT_FAILURE);
         }
-        if (inputStream == NULL) {
+        if (inputStream == NULL){
             printf("failed to open input file");
             exit(EXIT_FAILURE);
         }
@@ -84,13 +77,17 @@ void main() {
         //printf("Hello world!\n");
         char input1[MAX_SIZE];
         scanStream(input1);
-        if (fileEOF) {
+        if(fileEOF){
             return;
-        } else if (strcmp(input1, "ADD") == 0) {
+        }
+        else if (strcmp(input1, "ADD") == 0) {
             ADD();
-        } else if (strcmp(input1, "AND") == 0) {
+        }
+        else if (strcmp(input1, "AND") == 0) {
             AND();
-        } else if (input1[0] == 'B' && input1[1] == 'R') {
+        }
+
+        else if (input1[0] == 'B' && input1[1] == 'R') {
             bool n = false;
             bool z = false;
             bool p = false;
@@ -101,42 +98,57 @@ void main() {
                     if (input1[i] == 'p') { p = true; }
                 }
             }
-            BR(n, z, p);
-        } else if (strcmp(input1, "JMP") == 0) {
+            BR(n, z, p, lineNumber);
+        }
+        else if(strcmp(input1, "JMP") == 0){
             JMP();
-        } else if (strcmp(input1, "JSR") == 0) {
+        }
+        else if(strcmp(input1, "JSR") == 0){
             JSR();
-        } else if (strcmp(input1, "JSRR") == 0) {
+        }
+        else if(strcmp(input1, "JSRR") == 0){
             JSRR();
-        } else if (strcmp(input1, "LD") == 0) {
+        }
+        else if(strcmp(input1, "LD") == 0){
             LD();
-        } else if (strcmp(input1, "LDI") == 0) {
+        }
+        else if(strcmp(input1, "LDI") == 0){
             LDI();
-        } else if (strcmp(input1, "LDR") == 0) {
+        }
+        else if(strcmp(input1, "LDR") == 0){
             LDR();
-        } else if (strcmp(input1, "LEA") == 0) {
+        }
+        else if(strcmp(input1, "LEA") == 0){
             LEA();
-        } else if (strcmp(input1, "NOT") == 0) {
+        }
+        else if(strcmp(input1, "NOT") == 0){
             NOT();
-        } else if (strcmp(input1, "RET") == 0) {
+        }
+        else if(strcmp(input1, "RET") == 0){
             RET();
-        } else if (strcmp(input1, "RTI") == 0) {
+        }
+        else if(strcmp(input1, "RTI") == 0){
             RTI();
-        } else if (strcmp(input1, "ST") == 0) {
+        }
+        else if(strcmp(input1, "ST") == 0){
             ST();
-        } else if (strcmp(input1, "STI") == 0) {
+        }
+        else if(strcmp(input1, "STI") == 0){
             STI();
-        } else if (strcmp(input1, "STR") == 0) {
+        }
+        else if(strcmp(input1, "STR") == 0){
             STR();
-        } else if (strcmp(input1, "TRAP") == 0) {
+        }
+        else if(strcmp(input1, "TRAP") == 0){
             TRAP();
-        } else if (strcmp(input1, ".FILL") == 0) {
+        }
+        else if(strcmp(input1, ".FILL")==0){
             FILL();
         } else if (strcmp(input1, ".STRINGZ") == 0) {
             STRINGZ();
         } else { //label
             int c;
-            if (c = labelExist(input1) == 0) {
+            if (c = labelExist(input1) == -1) {
                 //printf("%d\n", c); // breaks! TODO: Fix
                 insertLabel(input1, lineNumber);
                 lineSwitch = false;
@@ -151,7 +163,7 @@ void main() {
 
 void scanStream(char *arr) {
     if (filemode) {
-        if (fscanf(inputStream, "%s", arr) == EOF) {
+        if(fscanf(inputStream,"%s", arr) == EOF){
             fileEOF = true;
             return;
         }
@@ -160,21 +172,21 @@ void scanStream(char *arr) {
     }
 }
 
-void printStream(char *arr) {
+void printStream(char *arr){
     if (filemode) {
-        fprintf(outputStream, "%s", arr);
+        fprintf(outputStream,"%s", arr);
     } else {
         printf(arr);
     }
 }
 
-void printNumberBits(int R, int bits) {
+void printNumberBits(int R, int bits){
     bool negative = false;
-    if (R < 0) {
+    if (R < 0){
         negative = true;
-        R = -R - 1;
+        R =  -R - 1;
     }
-    int R_arr[bits];
+    int R_arr[bits] ;
     int i;
     for (int j = 0; j < bits; j++) {
         R_arr[j] = 0;
@@ -193,7 +205,7 @@ void printNumberBits(int R, int bits) {
             }
         }
     } else {
-        for (i = bits - 1; i >= 0; i--) {
+        for(i = bits-1; i>=0;i--){
             if (negative) {
                 printf("%d", 1 - R_arr[i]);
             } else {
@@ -205,10 +217,10 @@ void printNumberBits(int R, int bits) {
 
 }
 
-int hexconvertion(char arr[], int size) { // size is size of chararr
+int hexconvertion(char arr[], int size){ // size is size of chararr
     int i = 1;
     int r = 0;
-    while (i < size) {
+    while (i < size){
         int current = (int) arr[i] - 48;
         if (current > 9) {
             current -= 7;
@@ -232,44 +244,46 @@ int hexconvertion(char arr[], int size) { // size is size of chararr
     return r;
 }
 
-int imm(char arr[], int bits) {
+int imm(char arr[], int bits){
     char temp_arr[bits];
-    for (int i = 1; i < bits; i++) {
-        temp_arr[i - 1] = arr[i];
+    for(int i = 1; i < bits; i++){
+        temp_arr[i-1] = arr[i];
     }
     int i;
-    sscanf(temp_arr, "%d", &i);
+    sscanf(temp_arr,"%d",&i);
     return i;
 }
 
-void insertLabel(char label[], int lineNumber) {
-    int i = -1;
-    while (labels[++i] != NULL) {}
-    int size = strlen(label);
-    if (size > 32) {
-        printStream("Too Big label");
-        exit(EXIT_FAILURE);
+void insertLabel(char label[], int lineNumber){
+    if (labelExist(label) == -1) {
+        int i = -1;
+        while (labels[++i] != NULL) {}
+        int size = strlen(label);
+        if (size > 32) {
+            printStream("Too Big label");
+            exit(EXIT_FAILURE);
+        }
+        int j = 0;
+        while (j < size) {
+            labels[i + j] = label[j];
+            j++;
+        }
+        labels[i + j] = '|';
+        i = 0;
+        while (pointList[i] != NULL) {
+            i++;
+        }
+        pointList[i] = lineNumber;
     }
-    int j = 0;
-    while (j < size) {
-        labels[i + j] = label[j];
-        j++;
-    }
-    labels[i + j] = ' ';
-    i = 0;
-    while (pointList[i] != NULL) {
-        i++;
-    }
-    pointList[i] = lineNumber;
 }
 
 int labelExist(char label[]) {
     int labelIndex = 0;
     int pointerIndex = 0;
     while (labels[labelIndex] != NULL) {
-        char tmp[32];
+        char tmp[] = "                                ";
         int j = 0;
-        while (labels[labelIndex + j] != ' ' && labels[labelIndex + j] != NULL) {
+        while (labels[labelIndex + j] != '|' && labels[labelIndex + j] != NULL) {
             if (j == 32) {
                 printStream("Too Big label");
                 exit(EXIT_FAILURE);
@@ -278,47 +292,58 @@ int labelExist(char label[]) {
             j++;
         }
 
-        if (strcmp(label, tmp) == 0) {
-            return pointList[pointerIndex];
+        bool same = true;
+        if (j == strlen(label)) {
+            for (int i = 0; i < j; i++) {
+                if (label[i] != tmp[i]) {
+                    same = false;
+                    break;
+                }
+            }
+            if (same) {
+                return pointList[pointerIndex];
+            }
         }
         pointerIndex++;
         labelIndex += j + 1;
     }
-    return 0;
+    return -1;
 }
 
-int findLabelPointer(char label[]) {
+int findLabelPointer(char label[]){
     int foundNumber = labelExist(label);
-    if (foundNumber != NULL) {
+    if (foundNumber != -1) {
         return foundNumber;
     }
     //Label not found before. search file for label:
-    FILE *tmpInputStream = fopen(fileN, "r");
-    int lineNumber = 0;
-    while (!feof(tmpInputStream)) {
-        char line[50];
-        int i = 0;
-        int c;
-        while (c = fgetc(tmpInputStream) != '\n') {
-            line[i++] = c;
+    if (filemode) {
+        FILE *tmpInputStream = fopen(fileN, "r");
+        int lineNumber = 0;
+        while (!feof(tmpInputStream)) {
+            char line[50];
+            int i = 0;
+            int c;
+            while (c = fgetc(tmpInputStream) != '\n') {
+                line[i++] = c;
+            }
+            int size = strlen(label);
+            char tmpLabel[size];
+            i = 0;
+            while (i < size) {
+                tmpLabel[i] = line[i];
+            }
+            if (strcmp(label, tmpLabel) == 0) { // found label
+                insertLabel(label, lineNumber);
+                return lineNumber;
+            }
+            lineNumber++;
         }
-        int size = strlen(label);
-        char tmpLabel[size];
-        i = 0;
-        while (i < size) {
-            tmpLabel[i] = line[i];
-        }
-        if (strcmp(label, tmpLabel) == 0) { // found label
-            insertLabel(label, lineNumber);
-            return lineNumber;
-        }
-        lineNumber++;
     }
     printf("Error: Label not found");
     exit(EXIT_FAILURE);
 }
 
-int calcLabelPointer(char label[], int currentLine) {
+int calcLabelPointer(char label[], int currentLine){
     int labelLineNumber = findLabelPointer(label);
     return labelLineNumber - currentLine;
 }
@@ -338,13 +363,13 @@ void ADD() { // - STEP 1
         printNumberBits(adder[1] - '0', 3);
     } else if (adder[0] == '#') {
         printStream("1");
-        printNumberBits(imm(adder, 5), 5);
+        printNumberBits(imm(adder,5),5);
     }
     printStream("\n");
     return;
 }
 
-void AND() {
+void AND(){
     printStream("0101");
     char arr[R_BITS];
     scanStream(arr);
@@ -358,13 +383,13 @@ void AND() {
         printNumberBits(adder[1] - '0', 3);
     } else if (adder[0] == '#') {
         printStream("1");
-        printNumberBits(imm(adder, 5), 5);
+        printNumberBits(imm(adder,5),5);
     }
     printStream("\n");
     return;
 }
 
-void BR(bool n, bool z, bool p) {
+void BR(bool n, bool z, bool p, int currentline) {
     printStream("0000");
     if (n) { printStream("1"); } else { printStream("0"); }
     if (z) { printStream("1"); } else { printStream("0"); }
@@ -372,8 +397,13 @@ void BR(bool n, bool z, bool p) {
 
     char input[5];
     scanStream(input);
-    printNumberBits(imm(input, 9), 9);
-    printStream("\n");
+    if (input[0] == '#') {
+        printNumberBits(imm(input, 9), 9);
+        printStream("\n");
+    } else {
+        printNumberBits(calcLabelPointer(input, currentline), 9);
+        printStream("\n");
+    }
     return;
 }
 
@@ -385,15 +415,15 @@ void JMP() {
     printStream("000000\n");
 }
 
-void JSR() {
+void JSR(){
     printStream("01001");
     char input[6];
     scanStream(input);
-    printNumberBits(imm(input, 11), 11);
+    printNumberBits(imm(input,11), 11);
     printStream("\n");
 }
 
-void JSRR() {
+void JSRR(){
     printStream("0100000");
     char arr[R_BITS];
     scanStream(arr);
@@ -401,7 +431,7 @@ void JSRR() {
     printStream("000000\n");
 }
 
-void LD() {
+void LD(){
     printStream("0010");
     char arr[R_BITS];
     scanStream(arr);
@@ -409,12 +439,12 @@ void LD() {
 
     char input[5];
     scanStream(input);
-    printNumberBits(imm(input, 9), 9);
+    printNumberBits(imm(input,9), 9);
     printStream("\n");
     return;
 } // - STEP 1
 
-void LDI() {
+void LDI(){
     printStream("1010");
     char arr[R_BITS];
     scanStream(arr);
@@ -422,12 +452,12 @@ void LDI() {
 
     char input[5];
     scanStream(input);
-    printNumberBits(imm(input, 9), 9);
+    printNumberBits(imm(input,9), 9);
     printStream("\n");
     return;
 }
 
-void LDR() {
+void LDR(){
     printStream("0110");
     char arr[R_BITS];
     scanStream(arr);
@@ -437,12 +467,12 @@ void LDR() {
 
     char input[4];
     scanStream(input);
-    printNumberBits(imm(input, 6), 6);
+    printNumberBits(imm(input,6), 6);
     printStream("\n");
     return;
 } // - STEP 1
 
-void LEA() {
+void LEA(){
     printStream("1110");
     char arr[R_BITS];
     scanStream(arr);
@@ -450,12 +480,12 @@ void LEA() {
 
     char input[5];
     scanStream(input);
-    printNumberBits(imm(input, 9), 9);
+    printNumberBits(imm(input,9), 9);
     printStream("\n");
     return;
 }
 
-void NOT() {
+void NOT(){
     printStream("1001");
     char arr[R_BITS];
     scanStream(arr);
@@ -476,7 +506,7 @@ void RTI() {
     return;
 }
 
-void ST() {
+void ST(){
     printStream("0011");
     char arr[R_BITS];
     scanStream(arr);
@@ -484,12 +514,12 @@ void ST() {
 
     char input[6];
     scanStream(input);
-    printNumberBits(imm(input, 9), 9);
+    printNumberBits(imm(input,9), 9);
     printStream("\n");
     return;
 }// - STEP 1
 
-void STI() {
+void STI(){
     printStream("1011");
     char arr[R_BITS];
     scanStream(arr);
@@ -497,12 +527,12 @@ void STI() {
 
     char input[6];
     scanStream(input);
-    printNumberBits(imm(input, 9), 9);
+    printNumberBits(imm(input,9), 9);
     printStream("\n");
     return;
 }
 
-void STR() {
+void STR(){
     printStream("0111");
     char arr[R_BITS];
     scanStream(arr);
@@ -512,20 +542,20 @@ void STR() {
 
     char input[5];
     scanStream(input);
-    printNumberBits(imm(input, 6), 6);
+    printNumberBits(imm(input,6), 6);
     printStream("\n");
     return;
 }
 
-void TRAP() {
+void TRAP(){
     printStream("11110000");
     char input[5];
-    scanStream(input);
+    scanStream(input);  
     printNumberBits(hexconvertion(input, 3), 8);
     printStream("\n");
 }
 
-void FILL() {
+void FILL(){
     char hex[4];
     scanStream(hex);
     printNumberBits(hexconvertion(hex, 4), 16);
