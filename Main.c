@@ -371,9 +371,9 @@ void AND(){
     printStream("0101");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
     char adder[MAX_SIZE];
     scanStream(adder);
     if (adder[0] == 'R') {
@@ -425,7 +425,7 @@ void JSRR(){
     printStream("0100000");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
     printStream("000000\n");
 }
 
@@ -433,7 +433,7 @@ void LD(){
     printStream("0010");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
 
     char input[5];
     scanStream(input);
@@ -446,7 +446,7 @@ void LDI(){
     printStream("1010");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
 
     char input[5];
     scanStream(input);
@@ -459,9 +459,9 @@ void LDR(){
     printStream("0110");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
 
     char input[4];
     scanStream(input);
@@ -474,7 +474,7 @@ void LEA(){
     printStream("1110");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
 
     char input[5];
     scanStream(input);
@@ -487,9 +487,9 @@ void NOT(){
     printStream("1001");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
     printStream("111111\n");
 
 } // - STEP 1
@@ -508,7 +508,7 @@ void ST(){
     printStream("0011");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
 
     char input[6];
     scanStream(input);
@@ -521,7 +521,7 @@ void STI(){
     printStream("1011");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
 
     char input[6];
     scanStream(input);
@@ -534,9 +534,9 @@ void STR(){
     printStream("0111");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
 
     char input[5];
     scanStream(input);
