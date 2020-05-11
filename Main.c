@@ -43,6 +43,7 @@ void STI(); //DONE
 void STR(); //DONE
 void TRAP(); //DONE
 void FILL();
+void STRINGZ();
 
 void main() {
     printf("write \"0\" for default file mode, \"1\" for choose file mode, \"2\" for stdin mode\n");
@@ -142,9 +143,9 @@ void main() {
         }
         else if(strcmp(input1, ".FILL")==0){
             FILL();
-        }
-
-        else { //label
+        } else if (strcmp(input1, ".STRINGZ") == 0) {
+            STRINGZ();
+        } else { //label
             int c;
             if (c = labelExist(input1) == -1) {
                 insertLabel(input1, lineNumber);
@@ -561,6 +562,42 @@ void FILL(){
 
 }
 
+
+void STRINGZ() {
+    char input[128];
+    bool done = false;
+    int i = 1;
+    int counter = 0;
+    while (!done) {
+        scanStream(input);
+        while (i <= strlen(input) && input[i] != '"') {
+            if (!(counter < 2)) {
+                counter = 0;
+                puts("");
+            }
+            if (input[i] == NULL) {
+                printNumberBits(' ', 8);
+            } else {
+                printNumberBits(input[i], 8);
+            }
+
+            //printf(" %c ", input[i]);
+            i++;
+            counter++;
+        }
+        if (input[i] == '"') {
+            if (counter < 2) {
+                printNumberBits(0, 8);
+            }
+            //puts(" Done");
+            puts("");
+            return;
+        }
+        if (i > strlen(input)) {
+            i = 0;
+        }
+    }
+}
 
 
 
