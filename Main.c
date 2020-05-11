@@ -353,9 +353,9 @@ void ADD() { // - STEP 1
     printStream("0001");
     char arr[R_BITS];
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
     scanStream(arr);
-    printNumberBits(arr[1] - '0', 3);
+    printNumberBits(arr[1], 3);
     char adder[MAX_SIZE];
     scanStream(adder);
     if (adder[0] == 'R') {
