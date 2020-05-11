@@ -146,7 +146,7 @@ void main() {
 
         else { //label
             int c;
-            if (c = labelExist(input1) == NULL) {
+            if (c = labelExist(input1) == 0) {
                 printf(input1[0]); // breaks! TODO: Fix
                 insertLabel(input1, lineNumber);
             }
@@ -289,7 +289,7 @@ int labelExist(char label[]) {
         pointerIndex++;
         labelIndex += j + 1;
     }
-    return NULL;
+    return 0;
 }
 
 int findLabelPointer(char label[]){
