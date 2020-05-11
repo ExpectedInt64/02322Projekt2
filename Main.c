@@ -147,7 +147,7 @@ void main() {
         else { //label
             int c;
             if (c = labelExist(input1) == 0) {
-                printf(input1[0]); // breaks! TODO: Fix
+                //printf("%d\n", c); // breaks! TODO: Fix
                 insertLabel(input1, lineNumber);
             }
         }
@@ -217,7 +217,6 @@ int hexconvertion(char arr[], int size){ // size is size of chararr
     int r = 0;
     while (i < size){
         int current = (int) arr[i] - 48;
-        //printf("%d\n", current);
         if (current > 9) {
             current -= 7;
         }
@@ -251,17 +250,14 @@ int imm(char arr[], int bits){
 }
 
 void insertLabel(char label[], int lineNumber){
-    printf(label[1] + " \n");
     int i = -1;
     while (labels[++i] != NULL){}
     int size = strlen(label);
-    printf("size = %d\n", size);
     int j = 0;
     while (j < size){
-        printf(label[j]);
         labels[i + j] = label[j];
+        j++;
     }
-    printf("test");
     labels[i + j + 1] = ' ';
     i = 0;
     while (pointList[i++] != NULL){}
