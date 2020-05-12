@@ -29,18 +29,18 @@ void ADD(); //DONE - STEP 1
 void AND(); //DONE
 void BR(bool n, bool z, bool p, int currentline); //DONE - STEP 1
 void JMP(); //DONE
-void JSR(); //DONE
+void JSR(int currentline); //DONE
 void JSRR(); //DONE
-void LD(); //DONE - STEP 1
-void LDI(); //DONE
-void LDR(); //DONE - STEP 1
-void LEA(); //DONE
+void LD(int currentline); //DONE - STEP 1
+void LDI(int currentline); //DONE
+void LDR(int currentline); //DONE - STEP 1
+void LEA(int currentline); //DONE
 void NOT(); //DONE - STEP 1
 void RET(); //DONE
 void RTI(); //DONE
-void ST(); //DONE - STEP 1
-void STI(); //DONE
-void STR(); //DONE
+void ST(int currentline); //DONE - STEP 1
+void STI(int currentline); //DONE
+void STR(int currentline); //DONE
 void TRAP(); //DONE
 void FILL();
 void STRINGZ();
@@ -103,22 +103,22 @@ void main() {
             JMP();
         }
         else if(strcmp(input1, "JSR") == 0){
-            JSR();
+            JSR(lineNumber);
         }
         else if(strcmp(input1, "JSRR") == 0){
             JSRR();
         }
         else if(strcmp(input1, "LD") == 0){
-            LD();
+            LD(lineNumber);
         }
         else if(strcmp(input1, "LDI") == 0){
-            LDI();
+            LDI(lineNumber);
         }
         else if(strcmp(input1, "LDR") == 0){
-            LDR();
+            LDR(lineNumber);
         }
         else if(strcmp(input1, "LEA") == 0){
-            LEA();
+            LEA(lineNumber);
         }
         else if(strcmp(input1, "NOT") == 0){
             NOT();
@@ -130,13 +130,13 @@ void main() {
             RTI();
         }
         else if(strcmp(input1, "ST") == 0){
-            ST();
+            ST(lineNumber);
         }
         else if(strcmp(input1, "STI") == 0){
-            STI();
+            STI(lineNumber);
         }
         else if(strcmp(input1, "STR") == 0){
-            STR();
+            STR(lineNumber);
         }
         else if(strcmp(input1, "TRAP") == 0){
             TRAP();
@@ -413,12 +413,17 @@ void JMP() {
     printStream("000000\n");
 }
 
-void JSR(){
+void JSR(int currentline){
     printStream("01001");
     char input[6];
     scanStream(input);
-    printNumberBits(imm(input,11), 11);
-    printStream("\n");
+    if (input[0] == '#') {
+        printNumberBits(imm(input, 11), 11);
+        printStream("\n");
+    } else {
+        printNumberBits(calcLabelPointer(input, currentline), 11);
+        printStream("\n");
+    }
 }
 
 void JSRR(){
@@ -429,7 +434,7 @@ void JSRR(){
     printStream("000000\n");
 }
 
-void LD(){
+void LD(int currentline){
     printStream("0010");
     char arr[R_BITS];
     scanStream(arr);
@@ -437,12 +442,17 @@ void LD(){
 
     char input[5];
     scanStream(input);
-    printNumberBits(imm(input,9), 9);
-    printStream("\n");
+    if (input[0] == '#') {
+        printNumberBits(imm(input, 9), 9);
+        printStream("\n");
+    } else {
+        printNumberBits(calcLabelPointer(input, currentline), 9);
+        printStream("\n");
+    }
     return;
 } // - STEP 1
 
-void LDI(){
+void LDI(int currentline){
     printStream("1010");
     char arr[R_BITS];
     scanStream(arr);
@@ -450,12 +460,17 @@ void LDI(){
 
     char input[5];
     scanStream(input);
-    printNumberBits(imm(input,9), 9);
-    printStream("\n");
+    if (input[0] == '#') {
+        printNumberBits(imm(input, 9), 9);
+        printStream("\n");
+    } else {
+        printNumberBits(calcLabelPointer(input, currentline), 9);
+        printStream("\n");
+    }
     return;
 }
 
-void LDR(){
+void LDR(int currentline){
     printStream("0110");
     char arr[R_BITS];
     scanStream(arr);
@@ -465,12 +480,17 @@ void LDR(){
 
     char input[4];
     scanStream(input);
-    printNumberBits(imm(input,6), 6);
-    printStream("\n");
+    if (input[0] == '#') {
+        printNumberBits(imm(input, 6), 6);
+        printStream("\n");
+    } else {
+        printNumberBits(calcLabelPointer(input, currentline), 6);
+        printStream("\n");
+    }
     return;
 } // - STEP 1
 
-void LEA(){
+void LEA(int currentline){
     printStream("1110");
     char arr[R_BITS];
     scanStream(arr);
@@ -478,8 +498,13 @@ void LEA(){
 
     char input[5];
     scanStream(input);
-    printNumberBits(imm(input,9), 9);
-    printStream("\n");
+    if (input[0] == '#') {
+        printNumberBits(imm(input, 9), 9);
+        printStream("\n");
+    } else {
+        printNumberBits(calcLabelPointer(input, currentline), 9);
+        printStream("\n");
+    }
     return;
 }
 
@@ -504,7 +529,7 @@ void RTI() {
     return;
 }
 
-void ST(){
+void ST(int currentline){
     printStream("0011");
     char arr[R_BITS];
     scanStream(arr);
@@ -512,12 +537,17 @@ void ST(){
 
     char input[6];
     scanStream(input);
-    printNumberBits(imm(input,9), 9);
-    printStream("\n");
+    if (input[0] == '#') {
+        printNumberBits(imm(input, 9), 9);
+        printStream("\n");
+    } else {
+        printNumberBits(calcLabelPointer(input, currentline), 9);
+        printStream("\n");
+    }
     return;
 }// - STEP 1
 
-void STI(){
+void STI(int currentline){
     printStream("1011");
     char arr[R_BITS];
     scanStream(arr);
@@ -525,12 +555,17 @@ void STI(){
 
     char input[6];
     scanStream(input);
-    printNumberBits(imm(input,9), 9);
-    printStream("\n");
+    if (input[0] == '#') {
+        printNumberBits(imm(input, 9), 9);
+        printStream("\n");
+    } else {
+        printNumberBits(calcLabelPointer(input, currentline), 9);
+        printStream("\n");
+    }
     return;
 }
 
-void STR(){
+void STR(int currentline){
     printStream("0111");
     char arr[R_BITS];
     scanStream(arr);
@@ -540,8 +575,13 @@ void STR(){
 
     char input[5];
     scanStream(input);
-    printNumberBits(imm(input,6), 6);
-    printStream("\n");
+    if (input[0] == '#') {
+        printNumberBits(imm(input, 6), 6);
+        printStream("\n");
+    } else {
+        printNumberBits(calcLabelPointer(input, currentline), 6);
+        printStream("\n");
+    }
     return;
 }
 
