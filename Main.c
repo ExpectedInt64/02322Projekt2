@@ -25,23 +25,23 @@ char fileN[] = "stdinpfile.txt";
 
 void scanStream(char *arr);
 void printStream(char *arr);
-void ADD(); //DONE - STEP 1
-void AND(); //DONE
-void BR(bool n, bool z, bool p, int currentline); //DONE - STEP 1
-void JMP(); //DONE
-void JSR(int currentline); //DONE
-void JSRR(); //DONE
-void LD(int currentline); //DONE - STEP 1
-void LDI(int currentline); //DONE
-void LDR(int currentline); //DONE - STEP 1
-void LEA(int currentline); //DONE
-void NOT(); //DONE - STEP 1
-void RET(); //DONE
-void RTI(); //DONE
-void ST(int currentline); //DONE - STEP 1
-void STI(int currentline); //DONE
-void STR(int currentline); //DONE
-void TRAP(); //DONE
+void ADD();
+void AND();
+void BR(bool n, bool z, bool p, int currentline);
+void JMP();
+void JSR(int currentline);
+void JSRR();
+void LD(int currentline);
+void LDI(int currentline);
+void LDR(int currentline);
+void LEA(int currentline);
+void NOT();
+void RET();
+void RTI();
+void ST(int currentline);
+void STI(int currentline);
+void STR(int currentline);
+void TRAP();
 void FILL();
 int STRINGZ();
 void BLKW();
@@ -196,7 +196,7 @@ void printStream(char *arr){
         printf(arr);
     }
 }
-
+//Takes a decimal number and prints it as binary
 void printNumberBits(int R, int bits){
     bool negative = false;
     if (R < 0){
@@ -234,7 +234,8 @@ void printNumberBits(int R, int bits){
 
 }
 
-int hexconvertion(char arr[]){
+//Converts hex to decimal number
+int hexconvertion(char arr[]){ 
     int i = 1;
     int r = 0;
     int size = strlen(arr);
