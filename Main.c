@@ -147,7 +147,7 @@ void main() {
             lineNumber += STRINGZ() - 1; // -1 for later ++
         } else { //label
             int c;
-            if (c = labelExist(input1) == -1) {
+            if ((c = labelExist(input1)) == -1) {
                 insertLabel(input1, lineNumber);
                 lineSwitch = false;
             }
