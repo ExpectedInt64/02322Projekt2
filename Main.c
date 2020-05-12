@@ -383,7 +383,6 @@ void ADD() { // - STEP 1
         printNumberBits(imm(adder,5),5);
     }
     printStream("\n");
-    return;
 }
 
 void AND(){
