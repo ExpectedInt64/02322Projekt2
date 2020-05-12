@@ -26,3 +26,7 @@ BRnzp LBL1
 BRnzp LBL0
 .STRINGZ "Hello World!"
 .FILL x0F0F
+.BLKW #33
+.BLKW #1337
+#255
+.STRINGZ "End"
