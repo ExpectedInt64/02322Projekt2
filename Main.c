@@ -144,6 +144,10 @@ void main() {
         }
         else if(strcmp(input1, "TRAP") == 0){
             TRAP();
+        }else if(strcmp(input1,".END") == 0) {
+            lineSwitch = false;
+        }else if(strcmp(input1,".ORIG") == 0) {
+            lineSwitch = false;
         }
         else if(strcmp(input1, ".FILL")==0){
             FILL();
