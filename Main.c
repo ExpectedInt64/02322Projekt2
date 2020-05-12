@@ -179,20 +179,20 @@ void main() {
 }
 
 void scanStream(char *arr) {
-    if (filemode) {
+    if (filemode) { // Scans from file if in filemode
         if(fscanf(inputStream,"%s", arr) == EOF){
             fileEOF = true;
             return;
         }
-    } else {
+    } else { //otherwise, scans from commandline.
         scanf("%s", arr);
     }
 }
 
 void printStream(char *arr){
-    if (filemode) {
+    if (filemode) {// prints in file if in filemode
         fprintf(outputStream,"%s", arr);
-    } else {
+    } else { //otherwise, prints in commandline.
         printf(arr);
     }
 }
@@ -234,7 +234,7 @@ void printNumberBits(int R, int bits){
 
 }
 
-int hexconvertion(char arr[]){ // size is size of chararr
+int hexconvertion(char arr[]){
     int i = 1;
     int r = 0;
     int size = strlen(arr);
@@ -262,7 +262,7 @@ int hexconvertion(char arr[]){ // size is size of chararr
     return r;
 }
 
-int imm(char arr[], int bits){
+int imm(char arr[], int bits){ //converts char array from "#1234" to int = 1234
     char temp_arr[bits];
     for(int i = 1; i < bits; i++){
         temp_arr[i-1] = arr[i];
@@ -272,7 +272,7 @@ int imm(char arr[], int bits){
     return i;
 }
 
-void insertLabel(char label[], int lineNumber){
+void insertLabel(char label[], int lineNumber){ // saves label and linenumber of the label for future use
     if (labelExist(label) == -1) {
         int i = -1;
         while (labels[++i] != NULL) {}
@@ -295,7 +295,7 @@ void insertLabel(char label[], int lineNumber){
     }
 }
 
-int labelExist(char label[]) {
+int labelExist(char label[]) { // returns linenumber if label exist, else returns -1
     int labelIndex = 0;
     int pointerIndex = 0;
     while (labels[labelIndex] != NULL) {
@@ -328,7 +328,7 @@ int labelExist(char label[]) {
     return -1;
 }
 
-int findLabelPointer(char label[]){
+int findLabelPointer(char label[]){ //finds a labels line number and returns it
     int foundNumber = labelExist(label);
     if (foundNumber != -1) {
         return foundNumber;
@@ -375,7 +375,7 @@ int findLabelPointer(char label[]){
     exit(EXIT_FAILURE);
 }
 
-int calcLabelPointer(char label[], int currentLine){
+int calcLabelPointer(char label[], int currentLine){ // calculates the difference between a current line number and a label line number
     int labelLineNumber = findLabelPointer(label);
     int dist = labelLineNumber - currentLine;
     if (dist < 0){
