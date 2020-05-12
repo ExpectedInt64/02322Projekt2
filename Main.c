@@ -43,7 +43,7 @@ void STI(int currentline); //DONE
 void STR(int currentline); //DONE
 void TRAP(); //DONE
 void FILL();
-void STRINGZ();
+int STRINGZ();
 
 void main() {
     printf("write \"0\" for default file mode, \"1\" for choose file mode, \"2\" for stdin mode\n");
@@ -144,7 +144,7 @@ void main() {
         else if(strcmp(input1, ".FILL")==0){
             FILL();
         } else if (strcmp(input1, ".STRINGZ") == 0) {
-            STRINGZ();
+            lineNumber += STRINGZ() - 1; // -1 for later ++
         } else { //label
             int c;
             if (c = labelExist(input1) == -1) {
@@ -316,39 +316,38 @@ int findLabelPointer(char label[]){
     }
     //Label not found before. search file for label:
     if (filemode) {
-        FILE *tmpInputStream = fopen(fileN, "r");
+        FILE *tmpInputStream;
+        tmpInputStream = fopen(fileN, "r");
         int lineNumber = 1;
-        while (!feof(tmpInputStream)) {
+        char c = " ";
+        while (c != EOF) {
             char line[] = "                                                  ";
             int i = 0;
-            int c;
-            while (c = fgetc(tmpInputStream) != '\n') {
+            while ((c = fgetc(tmpInputStream)) != '\n') {
                 line[i++] = c;
             }
+            //printf(line);
             int size = strlen(label);
             char tmpLabel[size];
             i = 0;
             while (i < size) {
                 tmpLabel[i] = line[i];
+                i++;
             }
-            if (strcmp(label, tmpLabel) == 0) { // found label
+
+
+            bool same = true;
+            for (int j = 0; j < strlen(label); j++) {
+                if (label[j] != tmpLabel[j]) {
+                    same = false;
+                    break;
+                }
+            }
+            if (same) {
                 insertLabel(label, lineNumber);
                 return lineNumber;
             }
 
-            if (i == strlen(label)) {
-                bool same = true;
-                for (int j = 0; j < i; j++) {
-                    if (label[i] != tmpLabel[i]) {
-                        same = false;
-                        break;
-                    }
-                }
-                if (same) {
-                    insertLabel(label, lineNumber);
-                    return lineNumber;
-                }
-            }
 
             lineNumber++;
         }
@@ -359,7 +358,11 @@ int findLabelPointer(char label[]){
 
 int calcLabelPointer(char label[], int currentLine){
     int labelLineNumber = findLabelPointer(label);
-    return labelLineNumber - currentLine;
+    int dist = labelLineNumber - currentLine;
+    if (dist < 0){
+        return dist + 1;
+    }
+    return dist;
 }
 
 // for implementation
@@ -613,23 +616,24 @@ void FILL(){
     char hex[4];
     scanStream(hex);
     printNumberBits(hexconvertion(hex), 16);
-    printf("\n");
-
+    printStream("\n");
 
 }
 
 
-void STRINGZ() {
+int STRINGZ() {
     char input[128];
     bool done = false;
     int i = 1;
     int counter = 0;
+    int linesMade = 0;
     while (!done) {
         scanStream(input);
         while (i <= strlen(input) && input[i] != '"') {
             if (!(counter < 2)) {
                 counter = 0;
                 printStream("\n");
+                linesMade++;
             }
             if (input[i] == NULL) {
                 printNumberBits(' ', 8);
@@ -645,9 +649,9 @@ void STRINGZ() {
             if (counter < 2) {
                 printNumberBits(0, 8);
             }
-            //puts(" Done");
             printStream("\n");
-            return;
+            linesMade++;
+            return linesMade;
         }
         if (i > strlen(input)) {
             i = 0;
