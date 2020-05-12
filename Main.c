@@ -44,6 +44,7 @@ void STR(int currentline); //DONE
 void TRAP(); //DONE
 void FILL();
 int STRINGZ();
+void BLKW();
 
 void main() {
     printf("write \"0\" for default file mode, \"1\" for choose file mode, \"2\" for stdin mode\n");
@@ -72,7 +73,10 @@ void main() {
     }
 
     int lineNumber = 1;
+    bool isBLKW = false;
+    bool wasBLKW = false;
     while (1) {
+
         bool lineSwitch = true;
         char input1[MAX_SIZE];
         scanStream(input1);
@@ -145,13 +149,24 @@ void main() {
             FILL();
         } else if (strcmp(input1, ".STRINGZ") == 0) {
             lineNumber += STRINGZ() - 1; // -1 for later ++
+        }else if (strcmp(input1, ".BLKW") == 0) {
+            BLKW();
+            isBLKW = true;
+            wasBLKW = true;
+        } else if(input1[0]=='#' && isBLKW) {
+            printNumberBits(imm(input1,16), 16);
+            printStream("\n");
+            wasBLKW = true;
         } else { //label
             int c;
             if ((c = labelExist(input1)) == -1) {
                 insertLabel(input1, lineNumber);
                 lineSwitch = false;
             }
+        } if(!wasBLKW){
+            isBLKW = false;
         }
+        wasBLKW = false;
 
         if (lineSwitch) {
             lineNumber++;
@@ -383,7 +398,6 @@ void ADD() { // - STEP 1
         printNumberBits(imm(adder,5),5);
     }
     printStream("\n");
-    return;
 }
 
 void AND(){
@@ -659,7 +673,12 @@ int STRINGZ() {
     }
 }
 
-
+void BLKW(){
+    char input[6];
+    scanStream(input);
+    printNumberBits(imm(input,16), 16);
+    printStream("\n");
+}
 
 
 
