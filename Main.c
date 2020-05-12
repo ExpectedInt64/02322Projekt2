@@ -6,7 +6,7 @@
 #define MAX_SIZE 50
 #define R_BITS 3
 
-int hexconvertion(char arr[], int size);
+int hexconvertion(char arr[]);
 void printNumberBits(int R, int bits);
 int imm(char arr[], int bits);
 
@@ -215,9 +215,10 @@ void printNumberBits(int R, int bits){
 
 }
 
-int hexconvertion(char arr[], int size){ // size is size of chararr
+int hexconvertion(char arr[]){ // size is size of chararr
     int i = 1;
     int r = 0;
+    int size = strlen(arr);
     while (i < size){
         int current = (int) arr[i] - 48;
         if (current > 9) {
@@ -316,9 +317,9 @@ int findLabelPointer(char label[]){
     //Label not found before. search file for label:
     if (filemode) {
         FILE *tmpInputStream = fopen(fileN, "r");
-        int lineNumber = 0;
+        int lineNumber = 1;
         while (!feof(tmpInputStream)) {
-            char line[50];
+            char line[] = "                                                  ";
             int i = 0;
             int c;
             while (c = fgetc(tmpInputStream) != '\n') {
@@ -334,6 +335,21 @@ int findLabelPointer(char label[]){
                 insertLabel(label, lineNumber);
                 return lineNumber;
             }
+
+            if (i == strlen(label)) {
+                bool same = true;
+                for (int j = 0; j < i; j++) {
+                    if (label[i] != tmpLabel[i]) {
+                        same = false;
+                        break;
+                    }
+                }
+                if (same) {
+                    insertLabel(label, lineNumber);
+                    return lineNumber;
+                }
+            }
+
             lineNumber++;
         }
     }
@@ -589,14 +605,14 @@ void TRAP(){
     printStream("11110000");
     char input[5];
     scanStream(input);  
-    printNumberBits(hexconvertion(input, 3), 8);
+    printNumberBits(hexconvertion(input), 8);
     printStream("\n");
 }
 
 void FILL(){
     char hex[4];
     scanStream(hex);
-    printNumberBits(hexconvertion(hex, 4), 16);
+    printNumberBits(hexconvertion(hex), 16);
     printf("\n");
 
 
@@ -613,7 +629,7 @@ void STRINGZ() {
         while (i <= strlen(input) && input[i] != '"') {
             if (!(counter < 2)) {
                 counter = 0;
-                puts("");
+                printStream("\n");
             }
             if (input[i] == NULL) {
                 printNumberBits(' ', 8);
@@ -630,7 +646,7 @@ void STRINGZ() {
                 printNumberBits(0, 8);
             }
             //puts(" Done");
-            puts("");
+            printStream("\n");
             return;
         }
         if (i > strlen(input)) {
