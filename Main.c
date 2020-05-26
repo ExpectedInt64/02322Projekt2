@@ -94,13 +94,15 @@ void main() {
             bool n = false;
             bool z = false;
             bool p = false;
-            for (int i = 0; i < MAX_SIZE; i++) {
+            for (int i = 0; i < 5; i++) {
+                //printf("%c\n", input1[i]);
                 if (input1[i]) {
-                    if (input1[i] == 'n') { n = true; }
-                    if (input1[i] == 'z') { z = true; }
-                    if (input1[i] == 'p') { p = true; }
+                    if (input1[i] == 'n') { n = true;}
+                    if (input1[i] == 'z') { z = true;}
+                    if (input1[i] == 'p') { p = true;}
                 }
             }
+
             BR(n, z, p, lineNumber);
         }
         else if(strcmp(input1, "JMP") == 0){
